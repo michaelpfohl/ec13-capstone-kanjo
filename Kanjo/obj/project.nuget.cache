@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "PoeZt6h1450s2v9x3Uq26WXCVxw93CGchsPbfeCLXYKXf04citSFv2eBis5Lun9q3pyB9/UW6CwmmzZ13uFNeQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\rmpfo\\source\\repos\\Kanjo\\Kanjo\\Kanjo.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\rmpfo\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.13\\microsoft.netcore.app.host.win-x64.3.1.13.nupkg.sha512"
+  ],
+  "logs": []
+}
