@@ -52,6 +52,7 @@
     "eslint-plugin-react-hooks": "^1.7.0",
     "firebase": "^8.6.2",
     "node-sass": "^6.0.0",
+    "prettier": "^2.3.0",
     "react-router-dom": "^5.2.0",
     "reactstrap": "^8.9.0"
   }
