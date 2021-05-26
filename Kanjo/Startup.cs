@@ -10,6 +10,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Kanjo.Data;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Kanjo
 {
@@ -26,6 +29,11 @@ namespace Kanjo
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSingleton(Configuration);
+            services.AddTransient<UserRepository>();
+            services.AddTransient<EmotionRepository>();
+            services.AddTransient<EntryRepository>();
+            services.AddTransient<Entry_EmotionsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

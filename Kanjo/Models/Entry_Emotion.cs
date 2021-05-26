@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Kanjo.Models
 {
-    public class Entry_Emotions
+    public class Entry_Emotion
     {
         public int Id { get; set; }
         public int Entry_Id { get; set; }
@@ -15,5 +15,6 @@ namespace Kanjo.Models
         public string What_Answer { get; set; }
         public string Why_Answer { get; set; }
         public string How_Answer { get; set; }
+        public bool Active { get; set; }
     }
 }
