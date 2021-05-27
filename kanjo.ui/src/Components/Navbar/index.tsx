@@ -30,7 +30,7 @@ const Navigation = ({ user }: NavProps): JSX.Element => {
               <NavLink href="/entry">entry</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/emotion">
+              <NavLink href="/emotions">
                 emotion
               </NavLink>
             </NavItem>

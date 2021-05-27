@@ -18,11 +18,11 @@ namespace Kanjo.Data
             ConnectionString = config.GetConnectionString("Kanjo");
         }
 
-        public List<Emotion> GetAll()
+        public List<Emotion> GetAll(int userId)
         {
             using var db = new SqlConnection(ConnectionString);
-            var sql = "SELECT * FROM Emotions WHERE Active = 1";
-            return db.Query<Emotion>(sql).ToList();
+            var sql = "SELECT * FROM Emotions WHERE Active = 1 AND User_Id = 6 OR User_Id = @userId";
+            return db.Query<Emotion>(sql, new { userId = userId }).ToList();
         }
 
         public List<Emotion> GetAllByUser(int userId)
