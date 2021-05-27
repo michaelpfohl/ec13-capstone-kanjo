@@ -12,7 +12,7 @@ namespace Kanjo.Controllers
 
     [ApiController]
     [Route("api/entry_emotions")]
-    public class Entry_EmotionsController : ControllerBase
+    public class Entry_EmotionsController : FirebaseEnabledController
     {
         Entry_EmotionsRepository _repo;
 
