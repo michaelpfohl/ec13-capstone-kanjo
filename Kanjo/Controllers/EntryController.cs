@@ -12,7 +12,7 @@ namespace Kanjo.Controllers
 
     [ApiController]
     [Route("api/entries")]
-    public class EntryController : ControllerBase
+    public class EntryController : FirebaseEnabledController
     {
         EntryRepository _repo;
 

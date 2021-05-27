@@ -8,8 +8,14 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
+import Auth from '../Auth';
+import { User } from '../../Helpers/Types/UserTypes';
 
-const Navigation = (): JSX.Element => {
+type NavProps = {
+  user: User | null;
+};
+
+const Navigation = ({ user }: NavProps): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -35,6 +41,7 @@ const Navigation = (): JSX.Element => {
             </NavItem>
           </Nav>
         </Collapse>
+        <Auth user={user}/>
       </Navbar>
     </div>
   );
