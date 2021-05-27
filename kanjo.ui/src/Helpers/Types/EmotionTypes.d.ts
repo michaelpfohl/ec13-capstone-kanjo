@@ -9,6 +9,7 @@ declare module 'EmotionTypes' {
 
     type EmotionProps = {
         user: User;
+        onUpdate?: () => void;
     }
 }
 

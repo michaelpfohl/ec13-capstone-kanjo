@@ -24,7 +24,15 @@ const getEmotionById = (id: number): Promise<Emotion> =>
       .catch((error) => reject(error));
   });
 
+const addEmotion = (emotion: Emotion): Promise<Emotion> => 
+  new Promise((resolve, reject) => {
+    axios.post(`${emotionsUrl}`, emotion).then((response) => {
+        resolve(response.data)
+    }).catch((error) => reject(error));
+  });
+
 export default {
   getEmotions,
   getEmotionById,
+  addEmotion,
 };
