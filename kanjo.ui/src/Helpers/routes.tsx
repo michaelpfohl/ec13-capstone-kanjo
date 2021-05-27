@@ -1,16 +1,20 @@
 import { Switch, Route } from 'react-router-dom';
-
+import { User } from '../Helpers/Types/UserTypes';
 import NotFound from '../Views/NotFound';
 import Home from '../Views/Home';
-import Emotion from '../Views/Emotion';
+import Emotions from '../Views/Emotions';
 import Entry from '../Views/Entry';
 import Examine from '../Views/Examine';
 
-export default function Routes(): JSX.Element {
+type RoutesProps = {
+    user: User | null;
+}
+
+export default function Routes({ user }: RoutesProps): JSX.Element {
     return (
         <Switch>
             <Route exact path="/" component={() => <Home />}/>
-            <Route exact path="/emotion" component={() => <Emotion />}/>
+            <Route exact path="/emotions" component={() => <Emotions user={user}/>}/>
             <Route exact path="/entry" component={() => <Entry />}/>
             <Route exact path="/examine" component={() => <Examine />}/>
             <Route component={NotFound}/>

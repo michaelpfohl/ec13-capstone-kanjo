@@ -20,13 +20,13 @@ namespace Kanjo.Controllers
             _repo = repo;
         }
 
-        [HttpGet]
-        public IActionResult GetAllEmotions()
+        [HttpGet("all/{userId}")]
+        public IActionResult GetAllEmotions(int userId)
         {
-            return Ok(_repo.GetAll());
+            return Ok(_repo.GetAll(userId));
         }
 
-        [HttpGet("all/{userId}")]
+        [HttpGet("user/{userId}")]
         public IActionResult GetAllEmotionsByUser(int userId)
         {
             return Ok(_repo.GetAllByUser(userId));

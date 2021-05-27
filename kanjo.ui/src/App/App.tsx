@@ -38,7 +38,7 @@ class App extends Component<AppState> {
     return (
       <Router>
         <Navigation user={user}/>
-        <Routes />
+        <Routes user={user}/>
       </Router>
     );
   }
