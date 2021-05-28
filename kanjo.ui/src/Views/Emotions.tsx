@@ -16,9 +16,15 @@ class Emotions extends Component<EmotionsProps> {
 
   componentDidMount(): void {
     const { user } = this.props;
-    emotionData.getEmotions(user?.id).then((response) => {
-      this.setState({ emotions: response });
-    });
+    if (user) {
+      emotionData.getEmotions(user?.id).then((response) => {
+        this.setState({ emotions: response });
+      });
+    } else {
+      emotionData.getPublicEmotions().then((response) => {
+        this.setState({ emotions: response });
+      });
+    }
   }
 
   onUpdate = (): void => {

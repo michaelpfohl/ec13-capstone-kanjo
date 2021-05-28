@@ -25,6 +25,13 @@ namespace Kanjo.Data
             return db.Query<Emotion>(sql, new { userId = userId }).ToList();
         }
 
+        public List<Emotion> GetAllPublic()
+        {
+            using var db = new SqlConnection(ConnectionString);
+            var sql = "SELECT * FROM Emotions WHERE Active = 1 AND User_Id = 6";
+            return db.Query<Emotion>(sql).ToList();
+        }
+
         public List<Emotion> GetAllByUser(int userId)
         {
             using var db = new SqlConnection(ConnectionString);
