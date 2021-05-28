@@ -8,6 +8,13 @@ declare module "PropTypes" {
       ) => void;
   };
 
+  type EntryProps = {
+    user: User | null;
+    loginClickEvent: (
+        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+      ) => void;
+  };
+
   type RoutesProps = {
     user: User | null;
     loginClickEvent: (
@@ -16,4 +23,4 @@ declare module "PropTypes" {
   };
 }
 
-export { HomeProps, RoutesProps };
+export { HomeProps, EntryProps, RoutesProps };
