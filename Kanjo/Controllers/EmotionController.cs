@@ -26,6 +26,12 @@ namespace Kanjo.Controllers
             return Ok(_repo.GetAll(userId));
         }
 
+        [HttpGet("public")]
+        public IActionResult GetAllPublicEmotions()
+        {
+            return Ok(_repo.GetAllPublic());
+        }
+
         [HttpGet("user/{userId}")]
         public IActionResult GetAllEmotionsByUser(int userId)
         {

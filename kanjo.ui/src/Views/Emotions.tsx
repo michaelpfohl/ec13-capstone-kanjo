@@ -16,9 +16,15 @@ class Emotions extends Component<EmotionsProps> {
 
   componentDidMount(): void {
     const { user } = this.props;
-    emotionData.getEmotions(user?.id).then((response) => {
-      this.setState({ emotions: response });
-    });
+    if (user) {
+      emotionData.getEmotions(user?.id).then((response) => {
+        this.setState({ emotions: response });
+      });
+    } else {
+      emotionData.getPublicEmotions().then((response) => {
+        this.setState({ emotions: response });
+      });
+    }
   }
 
   onUpdate = (): void => {
@@ -26,13 +32,13 @@ class Emotions extends Component<EmotionsProps> {
     emotionData.getEmotions(user?.id).then((response) => {
       this.setState({ emotions: response });
     });
-  }
+  };
 
   render(): JSX.Element {
     const { emotions } = this.state;
     const { user } = this.props;
     const emotionCard = (emotion: Emotion): JSX.Element => {
-      return <EmotionCard key={emotion.id} emotion={emotion}/>;
+      return <EmotionCard key={emotion.id} emotion={emotion} />;
     };
     const cards = emotions.map(emotionCard);
     return (
@@ -41,9 +47,11 @@ class Emotions extends Component<EmotionsProps> {
           <div className="d-flex justify-content-center">
             <h1>emotion</h1>
           </div>
-          <div className="d-flex justify-content-center mt-4">
-            <EmotionModal user={user} onUpdate={this.onUpdate}/>
-          </div>
+          {user && (
+            <div className="d-flex justify-content-center mt-4">
+              <EmotionModal user={user} onUpdate={this.onUpdate} />
+            </div>
+          )}
           <div className="d-flex container justify-content-around flex-wrap">
             {cards}
           </div>

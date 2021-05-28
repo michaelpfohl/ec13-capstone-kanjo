@@ -15,8 +15,8 @@ export default function Routes({ user, loginClickEvent }: RoutesProps): JSX.Elem
         <Switch>
             <Route exact path="/" component={() => <Home user={user} loginClickEvent={loginClickEvent}/>}/>
             <Route exact path="/emotions" component={() => <Emotions user={user}/>}/>
-            <Route exact path="/entry" component={() => <Entry />}/>
-            <Route exact path="/examine" component={() => <Examine />}/>
+            <Route exact path="/entry" component={() => <Entry user={user} loginClickEvent={loginClickEvent}/>}/>
+            <Route exact path="/examine" component={() => <Examine user={user} loginClickEvent={loginClickEvent}/>}/>
             <Route exact path="/single-emotion" component={(props: EmotionProps) => <SingleEmotion{...props}/>}/>
             <Route component={NotFound}/>
         </Switch>
