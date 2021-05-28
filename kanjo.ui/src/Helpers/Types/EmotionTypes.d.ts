@@ -9,6 +9,7 @@ declare module 'EmotionTypes' {
 
     type EmotionProps = {
         user: User;
+        location: RouteComponentProps["location"],
         onUpdate?: () => void;
     }
 }

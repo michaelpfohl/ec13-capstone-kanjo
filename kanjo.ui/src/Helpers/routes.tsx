@@ -5,6 +5,9 @@ import Home from '../Views/Home';
 import Emotions from '../Views/Emotions';
 import Entry from '../Views/Entry';
 import Examine from '../Views/Examine';
+import SingleEmotion from '../Views/SingleEmotion';
+
+import { EmotionProps } from '../Helpers/Types/EmotionTypes';
 
 type RoutesProps = {
     user: User | null;
@@ -17,6 +20,7 @@ export default function Routes({ user }: RoutesProps): JSX.Element {
             <Route exact path="/emotions" component={() => <Emotions user={user}/>}/>
             <Route exact path="/entry" component={() => <Entry />}/>
             <Route exact path="/examine" component={() => <Examine />}/>
+            <Route exact path="/single-emotion" component={(props: EmotionProps) => <SingleEmotion{...props}/>}/>
             <Route component={NotFound}/>
         </Switch>
     );  
