@@ -1,5 +1,4 @@
 import { Switch, Route } from 'react-router-dom';
-import { User } from '../Helpers/Types/UserTypes';
 import NotFound from '../Views/NotFound';
 import Home from '../Views/Home';
 import Emotions from '../Views/Emotions';
@@ -8,15 +7,13 @@ import Examine from '../Views/Examine';
 import SingleEmotion from '../Views/SingleEmotion';
 
 import { EmotionProps } from '../Helpers/Types/EmotionTypes';
+import { RoutesProps } from '../Helpers/Types/PropTypes';
 
-type RoutesProps = {
-    user: User | null;
-}
 
-export default function Routes({ user }: RoutesProps): JSX.Element {
+export default function Routes({ user, loginClickEvent }: RoutesProps): JSX.Element {
     return (
         <Switch>
-            <Route exact path="/" component={() => <Home />}/>
+            <Route exact path="/" component={() => <Home user={user} loginClickEvent={loginClickEvent}/>}/>
             <Route exact path="/emotions" component={() => <Emotions user={user}/>}/>
             <Route exact path="/entry" component={() => <Entry />}/>
             <Route exact path="/examine" component={() => <Examine />}/>

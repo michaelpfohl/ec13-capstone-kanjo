@@ -33,12 +33,34 @@ class App extends Component<AppState> {
     });
   }
 
+  loginClickEvent = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ): void => {
+    e.preventDefault();
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase
+      .auth()
+      .signInWithPopup(provider)
+      .then((user) => {
+        if (user.additionalUserInfo?.isNewUser) {
+          const userInfo = {
+            name: user.user?.displayName,
+            profile_Picture: user.user?.photoURL,
+            firebase_Uid: user.user?.uid,
+            email: user.user?.email,
+          };
+          userData.addNewUser(userInfo);
+          window.location.href = "/";
+        }
+      });
+  };
+
   render(): JSX.Element {
     const { user } = this.state;
     return (
       <Router>
         <Navigation user={user}/>
-        <Routes user={user}/>
+        <Routes user={user} loginClickEvent={this.loginClickEvent}/>
       </Router>
     );
   }
