@@ -25,7 +25,6 @@ class Emotions extends Component<EmotionsProps> {
     const { user } = this.props;
     emotionData.getEmotions(user?.id).then((response) => {
       this.setState({ emotions: response });
-      console.log("yes it ran", response);
     });
   }
 
@@ -33,7 +32,7 @@ class Emotions extends Component<EmotionsProps> {
     const { emotions } = this.state;
     const { user } = this.props;
     const emotionCard = (emotion: Emotion): JSX.Element => {
-      return <EmotionCard key={emotion.id} emotion={emotion} />;
+      return <EmotionCard key={emotion.id} emotion={emotion}/>;
     };
     const cards = emotions.map(emotionCard);
     return (
