@@ -33,7 +33,7 @@ class EntryEmotionForm extends Component<EntryEmotionProps> {
       <div className="text-center">
         <h1 className="mt-4 mb-4">{emotion.name}</h1>
         <form className="mb-4 mx-4" onSubmit={this.handleSubmit}>
-          <p className="mb-0">where were you when you felt this emotion?</p>
+          <p className="mb-0">where were you when you felt {emotion.name} today?</p>
           <textarea
             name="where_Answer"
             value={this.state.where_Answer}
@@ -41,7 +41,7 @@ class EntryEmotionForm extends Component<EntryEmotionProps> {
             className={`form-control-lg m-2 modal-input`}
             required
           />
-          <p className="mb-0">who caused you to feel this emotion?</p>
+          <p className="mb-0">who caused you to feel {emotion.name} today?</p>
 
           <textarea
             name="who_Answer"
@@ -50,7 +50,7 @@ class EntryEmotionForm extends Component<EntryEmotionProps> {
             className={`form-control-lg m-2 modal-input`}
             required
           />
-          <p className="mb-0">when did you feel this emotion?</p>
+          <p className="mb-0">when did you feel {emotion.name} today?</p>
 
           <textarea
             name="when_Answer"
@@ -59,7 +59,7 @@ class EntryEmotionForm extends Component<EntryEmotionProps> {
             className={`form-control-lg m-2 modal-input`}
             required
           />
-          <p className="mb-0">describe how you felt when feeling this emotion</p>
+          <p className="mb-0">use emotive language to describe what your {emotion.name} was like today</p>
 
           <textarea
             name="how_Answer"
@@ -68,7 +68,7 @@ class EntryEmotionForm extends Component<EntryEmotionProps> {
             className={`form-control-lg m-2 modal-input`}
             required
           />
-          <p className="mb-0">why do you think you felt this emotion?</p>
+          <p className="mb-0">why do you think you felt {emotion.name} today?</p>
 
           <textarea
             name="why_Answer"

@@ -18,6 +18,7 @@ class EntryForm extends Component<EntryProps> {
     active: this.props.entry?.description || null,
     emotions: [],
     emotion: "",
+    emotionName: "",
     entryEmotions: [],
     flow_step: 0,
     where_Answer: "",
@@ -25,6 +26,7 @@ class EntryForm extends Component<EntryProps> {
     when_Answer: "",
     how_Answer: "",
     why_Answer: "",
+    prompt: false,
   };
 
   componentDidMount(): void {
@@ -103,9 +105,13 @@ class EntryForm extends Component<EntryProps> {
 
   nextFlowStep = (e: React.ChangeEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    const { flow_step } = this.state;
+    const { flow_step, emotion } = this.state;
     this.setState({
       flow_step: flow_step + 1,
+      prompt: false,
+    });
+    emotionData.getEmotionById(Number(emotion)).then((response) => {
+      this.setState({ emotionName: response.name });
     });
   };
 
@@ -117,8 +123,37 @@ class EntryForm extends Component<EntryProps> {
     });
   };
 
+  backPromptStep = (e: React.ChangeEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    this.setState({
+      prompt: false,
+    });
+  };
+
+  prompt = (e: React.ChangeEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    const { emotions } = this.state;
+    const emotionIndex = Math.floor(Math.random() * emotions.length);
+    const emotion: Emotion = emotions[emotionIndex];
+    emotionData.getEmotionById(emotion.id).then((response) => {
+        this.setState({
+            emotion: response.id,
+            emotionName: response.name,
+            prompt: true,
+        })
+    })
+  };
+
   render(): JSX.Element {
-    const { id, emotions, date, flow_step, entryEmotions } = this.state;
+    const {
+      id,
+      emotions,
+      date,
+      flow_step,
+      entryEmotions,
+      emotionName,
+      prompt,
+    } = this.state;
     const options = (emotion: Emotion): JSX.Element => {
       return (
         <option key={emotion.id} value={emotion.id}>
@@ -146,7 +181,7 @@ class EntryForm extends Component<EntryProps> {
               </div>
             </div>
           )}
-          {id && flow_step === 0 && (
+          {id && flow_step === 0 && !prompt && (
             <div className="text-center">
               <h1 className="mb-4">{date.toDateString()}</h1>
               <div className="d-flex justify-content-around">
@@ -157,6 +192,7 @@ class EntryForm extends Component<EntryProps> {
                       onChange={this.handleChange}
                       value={this.state.emotion}
                       required
+                      className="emotion-dropdown"
                     >
                       <option selected disabled hidden value="">
                         select an emotion
@@ -166,18 +202,34 @@ class EntryForm extends Component<EntryProps> {
                     <button>continue</button>
                   </form>
                 </div>
-                <div className="mx-5">
+                <form className="mx-5" onSubmit={this.prompt}>
                   <button>prompt an emotion</button>
-                </div>
+                </form>
               </div>
               <div className="d-flex justify-content-center flex-wrap">
                 {entryEmotionCircles}
               </div>
             </div>
           )}
+          {prompt && (
+            <div>
+              <h2>did you feel {emotionName} today?</h2>
+              <div className="d-flex justify-content-around">
+                <form onSubmit={this.backPromptStep}>
+                  <button>back</button>
+                </form>
+                <form onSubmit={this.prompt}>
+                  <button>new emotion</button>
+                </form>
+                <form onSubmit={this.nextFlowStep}>
+                  <button>continue</button>
+                </form>
+              </div>
+            </div>
+          )}
           {id && flow_step === 1 && (
             <div>
-              <h2>where were you when you felt this emotion?</h2>
+              <h2>where were you when you felt {emotionName} today?</h2>
               <textarea
                 name="where_Answer"
                 value={this.state.where_Answer}
@@ -197,7 +249,7 @@ class EntryForm extends Component<EntryProps> {
           )}
           {id && flow_step === 2 && (
             <div>
-              <h2>who caused you to feel this emotion?</h2>
+              <h2>who caused you to feel {emotionName} today?</h2>
               <textarea
                 name="who_Answer"
                 value={this.state.who_Answer}
@@ -217,7 +269,7 @@ class EntryForm extends Component<EntryProps> {
           )}
           {id && flow_step === 3 && (
             <div>
-              <h2>when did you feel this emotion?</h2>
+              <h2>when did you feel {emotionName} today?</h2>
               <textarea
                 name="when_Answer"
                 value={this.state.when_Answer}
@@ -237,7 +289,10 @@ class EntryForm extends Component<EntryProps> {
           )}
           {id && flow_step === 4 && (
             <div>
-              <h2>describe how you felt when feeling this emotion</h2>
+              <h2>
+                use emotive language to describe what your {emotionName} was
+                like today
+              </h2>
               <textarea
                 name="how_Answer"
                 value={this.state.how_Answer}
@@ -257,7 +312,7 @@ class EntryForm extends Component<EntryProps> {
           )}
           {id && flow_step === 5 && (
             <div>
-              <h2>why do you think you felt this emotion?</h2>
+              <h2>why do you think you felt {emotionName} today?</h2>
               <textarea
                 name="why_Answer"
                 value={this.state.why_Answer}
