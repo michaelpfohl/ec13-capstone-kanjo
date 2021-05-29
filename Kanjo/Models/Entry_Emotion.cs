@@ -12,7 +12,7 @@ namespace Kanjo.Models
         public int Emotion_Id { get; set; }
         public string Where_Answer { get; set; }
         public string Who_Answer { get; set; }
-        public string What_Answer { get; set; }
+        public string When_Answer { get; set; }
         public string Why_Answer { get; set; }
         public string How_Answer { get; set; }
         public bool Active { get; set; }

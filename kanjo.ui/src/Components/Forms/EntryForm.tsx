@@ -3,7 +3,7 @@ import { EntryProps } from "../../Helpers/Types/EntryTypes";
 import { Emotion } from "../../Helpers/Types/EmotionTypes";
 import emotionData from "../../Helpers/Data/emotionData";
 import entryData from "../../Helpers/Data/entryData";
-
+import entryEmotionData from "../../Helpers/Data/entryEmotionData";
 class EntryForm extends Component<EntryProps> {
   state = {
     id: this.props.entry?.id || null,
@@ -11,6 +11,13 @@ class EntryForm extends Component<EntryProps> {
     date: this.props.entry?.date || null,
     active: this.props.entry?.description || null,
     emotions: [],
+    emotion: "",
+    flow_step: 0,
+    where_Answer: "",
+    who_Answer: "",
+    when_Answer: "",
+    how_Answer: "",
+    why_Answer: "",
   };
 
   componentDidMount(): void {
@@ -22,15 +29,15 @@ class EntryForm extends Component<EntryProps> {
 
     const today = new Date();
     entryData.getMostRecent(user.id).then((response) => {
-        const date = new Date(response.data.date);
-        if (date.getDate() === today.getDate()){
-            this.setState({
-                id: response.data.id,
-                date: date,
-                active: response.data.active,
-              }); 
-        }
-    })
+      const date = new Date(response.data.date);
+      if (date.getDate() === today.getDate()) {
+        this.setState({
+          id: response.data.id,
+          date: date,
+          active: response.data.active,
+        });
+      }
+    });
   }
 
   handleEntrySubmit = (e: React.ChangeEvent<HTMLFormElement>): void => {
@@ -49,13 +56,53 @@ class EntryForm extends Component<EntryProps> {
           });
         });
       });
-    } else {
-      // edit entry
     }
   };
 
+  handleEntryEmotionSubmit = (e: React.ChangeEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    const entryEmotion = {
+        entry_Id: this.state.id,
+        emotion_Id: Number(this.state.emotion),
+        where_Answer: this.state.where_Answer,
+        when_Answer: this.state.when_Answer,
+        who_Answer: this.state.who_Answer,
+        how_Answer: this.state.how_Answer,
+        why_Answer: this.state.why_Answer,
+    }
+    entryEmotionData.addEntryEmotion(entryEmotion).then(() => {
+        window.location.reload();
+    })
+  }
+
+  handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >
+  ): void => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  nextFlowStep = (e: React.ChangeEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    const { flow_step } = this.state;
+    this.setState({
+      flow_step: flow_step + 1,
+    });
+  };
+
+  backFlowStep = (e: React.ChangeEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    const { flow_step } = this.state;
+    this.setState({
+      flow_step: flow_step - 1,
+    });
+  };
+
   render(): JSX.Element {
-    const { id, emotions } = this.state;
+    const { id, emotions, date, flow_step } = this.state;
     const options = (emotion: Emotion): JSX.Element => {
       return (
         <option key={emotion.id} value={emotion.id}>
@@ -65,33 +112,156 @@ class EntryForm extends Component<EntryProps> {
     };
     const emotionDropdown = emotions.map(options);
     return (
-      <div>
+      <div className="entry-container">
         <div>
           {!id && (
             <div>
               <h1>start an entry for the day</h1>
               <div className="d-flex justify-content-center mt-4 mb-4">
                 <form onSubmit={this.handleEntrySubmit}>
-                  <button>new entry</button>
+                  <button className="new-entry-circle">new entry</button>
                 </form>
               </div>
             </div>
           )}
-          <div className="d-flex justify-content-around">
-            <div>
-              <h4>choose emotion</h4>
-              <select name="emotion" id="">
-                <option selected disabled hidden value="">
-                  select an emotion
-                </option>
-                {emotionDropdown}
-              </select>
-              <button>continue</button>
+          {id && flow_step === 0 && (
+            <div className="text-center">
+              <h1 className="mb-4">{date.toDateString()}</h1>
+              <div className="d-flex justify-content-around">
+                <div className="mx-5">
+                  <h4>choose emotion</h4>
+                  <form onSubmit={this.nextFlowStep}>
+                    <select
+                      name="emotion"
+                      onChange={this.handleChange}
+                      value={this.state.emotion}
+                    >
+                      <option selected disabled hidden value="">
+                        select an emotion
+                      </option>
+                      {emotionDropdown}
+                    </select>
+                    <button>continue</button>
+                  </form>
+                </div>
+                <div className="mx-5">
+                  <button>prompt an emotion</button>
+                </div>
+              </div>
             </div>
+          )}
+          {id && flow_step === 1 && (
             <div>
-              <button>prompt an emotion</button>
+              <h2>where were you when you felt this emotion?</h2>
+              <textarea
+                name="where_Answer"
+                value={this.state.where_Answer}
+                onChange={this.handleChange}
+                className={`form-control-lg m-2 modal-input`}
+                required
+              />
+              <div className="d-flex justify-content-between">
+                <form onSubmit={this.backFlowStep}>
+                  <button>back</button>
+                </form>
+                <form onSubmit={this.nextFlowStep}>
+                  <button>next</button>
+                </form>
+              </div>
             </div>
-          </div>
+          )}
+          {id && flow_step === 2 && (
+            <div>
+              <h2>who caused you to feel this emotion?</h2>
+              <textarea
+                name="who_Answer"
+                value={this.state.who_Answer}
+                onChange={this.handleChange}
+                className={`form-control-lg m-2 modal-input`}
+                required
+              />
+              <div className="d-flex justify-content-between">
+                <form onSubmit={this.backFlowStep}>
+                  <button>back</button>
+                </form>
+                <form onSubmit={this.nextFlowStep}>
+                  <button>next</button>
+                </form>
+              </div>
+            </div>
+          )}
+          {id && flow_step === 3 && (
+            <div>
+              <h2>when did you feel this emotion?</h2>
+              <textarea
+                name="when_Answer"
+                value={this.state.when_Answer}
+                onChange={this.handleChange}
+                className={`form-control-lg m-2 modal-input`}
+                required
+              />
+              <div className="d-flex justify-content-between">
+                <form onSubmit={this.backFlowStep}>
+                  <button>back</button>
+                </form>
+                <form onSubmit={this.nextFlowStep}>
+                  <button>next</button>
+                </form>
+              </div>
+            </div>
+          )}
+          {id && flow_step === 4 && (
+            <div>
+              <h2>describe how you felt when feeling this emotion</h2>
+              <textarea
+                name="how_Answer"
+                value={this.state.how_Answer}
+                onChange={this.handleChange}
+                className={`form-control-lg m-2 modal-input`}
+                required
+              />
+              <div className="d-flex justify-content-between">
+                <form onSubmit={this.backFlowStep}>
+                  <button>back</button>
+                </form>
+                <form onSubmit={this.nextFlowStep}>
+                  <button>next</button>
+                </form>
+              </div>
+            </div>
+          )}
+          {id && flow_step === 5 && (
+            <div>
+              <h2>why do you think you felt this emotion?</h2>
+              <textarea
+                name="why_Answer"
+                value={this.state.why_Answer}
+                onChange={this.handleChange}
+                className={`form-control-lg m-2 modal-input`}
+                required
+              />
+              <div className="d-flex justify-content-between">
+                <form onSubmit={this.backFlowStep}>
+                  <button>back</button>
+                </form>
+                <form onSubmit={this.nextFlowStep}>
+                  <button>next</button>
+                </form>
+              </div>
+            </div>
+          )}
+          {id && flow_step === 6 && (
+              <div>
+              <div className="d-flex justify-content-between">
+                <form onSubmit={this.backFlowStep}>
+                  <button>back</button>
+                </form>
+                <form onSubmit={this.handleEntryEmotionSubmit}>
+                  <button>submit emotion</button>
+                </form>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );

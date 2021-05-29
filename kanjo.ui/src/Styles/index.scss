@@ -3,6 +3,7 @@
 @import 'navbar';
 @import 'emotion';
 @import 'logged-out';
+@import 'entry';
 
 body {
   margin: 0;
@@ -17,4 +18,8 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+textarea {
+  width: 100%;
 }
