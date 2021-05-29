@@ -1,9 +1,15 @@
 import React, { Component } from "react";
+
 import { EntryProps } from "../../Helpers/Types/EntryTypes";
 import { Emotion } from "../../Helpers/Types/EmotionTypes";
+import { EntryEmotion } from "../../Helpers/Types/EntryEmotionTypes";
+
 import emotionData from "../../Helpers/Data/emotionData";
 import entryData from "../../Helpers/Data/entryData";
 import entryEmotionData from "../../Helpers/Data/entryEmotionData";
+
+import EntryEmotionCard from "../../Components/Cards/EntryEmotionCard";
+
 class EntryForm extends Component<EntryProps> {
   state = {
     id: this.props.entry?.id || null,
@@ -12,6 +18,7 @@ class EntryForm extends Component<EntryProps> {
     active: this.props.entry?.description || null,
     emotions: [],
     emotion: "",
+    entryEmotions: [],
     flow_step: 0,
     where_Answer: "",
     who_Answer: "",
@@ -28,16 +35,25 @@ class EntryForm extends Component<EntryProps> {
     });
 
     const today = new Date();
-    entryData.getMostRecent(user.id).then((response) => {
-      const date = new Date(response.data.date);
-      if (date.getDate() === today.getDate()) {
-        this.setState({
-          id: response.data.id,
-          date: date,
-          active: response.data.active,
-        });
-      }
-    });
+    entryData
+      .getMostRecent(user.id)
+      .then((response) => {
+        const date = new Date(response.data.date);
+        if (date.getDate() === today.getDate()) {
+          this.setState({
+            id: response.data.id,
+            date: date,
+            active: response.data.active,
+          });
+        }
+      })
+      .then(() => {
+        entryEmotionData
+          .getEntryEmotionsByEntryId(this.state.id)
+          .then((response) => {
+            this.setState({ entryEmotions: response });
+          });
+      });
   }
 
   handleEntrySubmit = (e: React.ChangeEvent<HTMLFormElement>): void => {
@@ -62,18 +78,18 @@ class EntryForm extends Component<EntryProps> {
   handleEntryEmotionSubmit = (e: React.ChangeEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const entryEmotion = {
-        entry_Id: this.state.id,
-        emotion_Id: Number(this.state.emotion),
-        where_Answer: this.state.where_Answer,
-        when_Answer: this.state.when_Answer,
-        who_Answer: this.state.who_Answer,
-        how_Answer: this.state.how_Answer,
-        why_Answer: this.state.why_Answer,
-    }
+      entry_Id: this.state.id,
+      emotion_Id: Number(this.state.emotion),
+      where_Answer: this.state.where_Answer,
+      when_Answer: this.state.when_Answer,
+      who_Answer: this.state.who_Answer,
+      how_Answer: this.state.how_Answer,
+      why_Answer: this.state.why_Answer,
+    };
     entryEmotionData.addEntryEmotion(entryEmotion).then(() => {
-        window.location.reload();
-    })
-  }
+      window.location.reload();
+    });
+  };
 
   handleChange = (
     e: React.ChangeEvent<
@@ -102,7 +118,7 @@ class EntryForm extends Component<EntryProps> {
   };
 
   render(): JSX.Element {
-    const { id, emotions, date, flow_step } = this.state;
+    const { id, emotions, date, flow_step, entryEmotions } = this.state;
     const options = (emotion: Emotion): JSX.Element => {
       return (
         <option key={emotion.id} value={emotion.id}>
@@ -110,7 +126,13 @@ class EntryForm extends Component<EntryProps> {
         </option>
       );
     };
+    const circles = (entryEmotion: EntryEmotion): JSX.Element => {
+      return (
+        <EntryEmotionCard entryEmotion={entryEmotion} key={entryEmotion.id} />
+      );
+    };
     const emotionDropdown = emotions.map(options);
+    const entryEmotionCircles = entryEmotions.map(circles);
     return (
       <div className="entry-container">
         <div>
@@ -147,6 +169,9 @@ class EntryForm extends Component<EntryProps> {
                 <div className="mx-5">
                   <button>prompt an emotion</button>
                 </div>
+              </div>
+              <div className="d-flex justify-content-center flex-wrap">
+                {entryEmotionCircles}
               </div>
             </div>
           )}
@@ -251,7 +276,7 @@ class EntryForm extends Component<EntryProps> {
             </div>
           )}
           {id && flow_step === 6 && (
-              <div>
+            <div>
               <div className="d-flex justify-content-between">
                 <form onSubmit={this.backFlowStep}>
                   <button>back</button>

@@ -9,6 +9,11 @@ declare module 'EntryEmotionTypes' {
         how_Answer: string;
         why_Answer: string;
     }
+
+    type EntryEmotionProps = {
+        entryEmotion: EntryEmotion;
+        emotion: Emotion;
+    }
 }
 
-export { EntryEmotion };
+export { EntryEmotion, EntryEmotionProps };
