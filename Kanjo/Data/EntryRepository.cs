@@ -60,5 +60,14 @@ namespace Kanjo.Data
                         WHERE Id = @id";
             db.Execute(sql, new { id = id });
         }
+
+        public Entry GetMostRecent(int userId)
+        {
+            using var db = new SqlConnection(ConnectionString);
+            var sql = @"SELECT TOP 1 * FROM Entries 
+                        WHERE user_Id = @userId
+                        ORDER BY Date DESC";
+            return db.QueryFirstOrDefault<Entry>(sql, new { userId = userId });
+        }
     }
 }
