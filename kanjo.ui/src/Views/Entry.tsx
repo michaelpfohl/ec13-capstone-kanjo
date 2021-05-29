@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { EntryProps } from "../Helpers/Types/PropTypes";
+import EntryForm from '../Components/Forms/EntryForm';
 
 class Entry extends Component<EntryProps> {
   render(): JSX.Element {
@@ -18,7 +19,9 @@ class Entry extends Component<EntryProps> {
             </button>
           </div>
         )}
-        {user && <h1>entry</h1>}
+        {user && (
+          <EntryForm user={user}/>
+        )}
       </div>
     );
   }

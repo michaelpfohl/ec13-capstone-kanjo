@@ -8,13 +8,6 @@ declare module "PropTypes" {
       ) => void;
   };
 
-  type EntryProps = {
-    user: User | null;
-    loginClickEvent: (
-        e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-      ) => void;
-  };
-
   type ExamineProps = {
     user: User | null;
     loginClickEvent: (

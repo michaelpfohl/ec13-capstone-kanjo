@@ -6,7 +6,7 @@ class EmotionForm extends Component<EmotionProps> {
   state = {
     id: this.props.emotion?.id || null,
     name: this.props.emotion?.name || null,
-    user_Id: this.props.emotion?.user_id || null,
+    user_Id: this.props.emotion?.user_Id || null,
     description: this.props.emotion?.description || null,
     active: this.props.emotion?.description || null,
   };

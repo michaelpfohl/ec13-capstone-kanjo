@@ -53,5 +53,11 @@ namespace Kanjo.Controllers
             _repo.Delete(id);
             return Ok();
         }
+
+        [HttpGet("most-recent/{userId}")]
+        public IActionResult GetMostRecentEntry(int userId)
+        {
+            return Ok(_repo.GetMostRecent(userId));
+        }
     }
 }

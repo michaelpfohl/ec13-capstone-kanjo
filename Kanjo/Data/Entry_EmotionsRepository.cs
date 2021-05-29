@@ -58,7 +58,7 @@ namespace Kanjo.Data
                                ,[Where_Answer]
                                ,[Why_Answer]
                                ,[Who_Answer]
-                               ,[What_Answer]
+                               ,[When_Answer]
                                ,[How_Answer])
                          VALUES
                                (@Entry_Id
@@ -66,7 +66,7 @@ namespace Kanjo.Data
                                ,@Where_Answer
                                ,@Why_Answer
                                ,@Who_Answer
-                               ,@What_Answer
+                               ,@When_Answer
                                ,@How_Answer)";
             var id = db.ExecuteScalar<int>(sql, entry_emotion);
             entry_emotion.Id = id;
@@ -79,7 +79,7 @@ namespace Kanjo.Data
                            SET [Where_Answer] = @Where_Answer
                               ,[Why_Answer] = @Why_Answer
                               ,[Who_Answer] = @Who_Answer
-                              ,[What_Answer] = @What_Answer
+                              ,[When_Answer] = @When_Answer
                               ,[How_Answer] = @How_Answer
                         WHERE Id = @id";
             db.Execute(sql, entry_emotion);
