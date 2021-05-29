@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { EntryEmotionProps } from "../../Helpers/Types/EntryEmotionTypes";
-import entryEmotionData from '../../Helpers/Data/entryEmotionData';
+import entryEmotionData from "../../Helpers/Data/entryEmotionData";
 
 class EntryEmotionForm extends Component<EntryEmotionProps> {
   state = {
@@ -25,15 +25,26 @@ class EntryEmotionForm extends Component<EntryEmotionProps> {
     e.preventDefault();
     entryEmotionData.updateEntryEmotion(this.state);
     window.location.reload();
-  }
+  };
+
+  handleDelete = (e: React.ChangeEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    this.setState({ active: false });
+    entryEmotionData.updateEntryEmotion(this.state);
+    window.location.reload();
+  };
 
   render(): JSX.Element {
     const { emotion } = this.props;
     return (
       <div className="text-center">
-        <h1 className="mt-4 mb-4">{emotion.name}</h1>
+        <div className="d-flex justify-content-center">
+          <h1 className="mb-4">{emotion.name}</h1>
+        </div>
         <form className="mb-4 mx-4" onSubmit={this.handleSubmit}>
-          <p className="mb-0">where were you when you felt {emotion.name} today?</p>
+          <p className="mb-0">
+            where were you when you felt {emotion.name} today?
+          </p>
           <textarea
             name="where_Answer"
             value={this.state.where_Answer}
@@ -59,7 +70,10 @@ class EntryEmotionForm extends Component<EntryEmotionProps> {
             className={`form-control-lg m-2 modal-input`}
             required
           />
-          <p className="mb-0">use emotive language to describe what your {emotion.name} was like today</p>
+          <p className="mb-0">
+            use emotive language to describe what your {emotion.name} was like
+            today
+          </p>
 
           <textarea
             name="how_Answer"
@@ -68,7 +82,9 @@ class EntryEmotionForm extends Component<EntryEmotionProps> {
             className={`form-control-lg m-2 modal-input`}
             required
           />
-          <p className="mb-0">why do you think you felt {emotion.name} today?</p>
+          <p className="mb-0">
+            why do you think you felt {emotion.name} today?
+          </p>
 
           <textarea
             name="why_Answer"
@@ -77,7 +93,10 @@ class EntryEmotionForm extends Component<EntryEmotionProps> {
             className={`form-control-lg m-2 modal-input`}
             required
           />
-          <button>update</button>
+          <button id="update">update</button>
+        </form>
+        <form className="mb-4" onSubmit={this.handleDelete}>
+            <button>delete</button>
         </form>
       </div>
     );
