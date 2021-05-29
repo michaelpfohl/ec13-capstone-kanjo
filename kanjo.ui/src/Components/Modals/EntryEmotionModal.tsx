@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Modal } from 'reactstrap';
 import { EntryEmotionProps } from "../../Helpers/Types/EntryEmotionTypes";
+import EntryEmotionForm from '../Forms/EntryEmotionForm';
 
 const EmotionModal = ({ entryEmotion, emotion }: EntryEmotionProps): JSX.Element => {
   const [modal, setModal] = useState(false);
@@ -12,7 +13,7 @@ const EmotionModal = ({ entryEmotion, emotion }: EntryEmotionProps): JSX.Element
       <button className="m-4 entry-emotion-circle" onClick={toggle}>{emotion.name}</button>
       <Modal isOpen={modal} toggle={toggle}>
         <div>
-            {entryEmotion.where_Answer}
+            <EntryEmotionForm entryEmotion={entryEmotion} emotion={emotion}/>
         </div>
       </Modal>
     </div>

@@ -18,4 +18,11 @@ const getEntryEmotionsByEntryId = (entryId: number): Promise<EntryEmotion[]> =>
       }).catch((error) => reject(error));
   })
 
-export default { addEntryEmotion, getEntryEmotionsByEntryId };
+const updateEntryEmotion = (entryEmotion: EntryEmotion): Promise<EntryEmotion> =>
+new Promise((resolve, reject) => {
+    axios.put(`${entryEmotionsUrl}/${entryEmotion.id}`, entryEmotion).then((response) => {
+        resolve(response);
+    }).catch((error) => reject(error));
+});
+
+export default { addEntryEmotion, getEntryEmotionsByEntryId, updateEntryEmotion };

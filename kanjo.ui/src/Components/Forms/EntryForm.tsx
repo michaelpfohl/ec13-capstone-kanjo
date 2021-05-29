@@ -151,12 +151,12 @@ class EntryForm extends Component<EntryProps> {
               <h1 className="mb-4">{date.toDateString()}</h1>
               <div className="d-flex justify-content-around">
                 <div className="mx-5">
-                  <h4>choose emotion</h4>
                   <form onSubmit={this.nextFlowStep}>
                     <select
                       name="emotion"
                       onChange={this.handleChange}
                       value={this.state.emotion}
+                      required
                     >
                       <option selected disabled hidden value="">
                         select an emotion
