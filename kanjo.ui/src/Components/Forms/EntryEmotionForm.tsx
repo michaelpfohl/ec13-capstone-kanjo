@@ -30,8 +30,10 @@ class EntryEmotionForm extends Component<EntryEmotionProps> {
   handleDelete = (e: React.ChangeEvent<HTMLFormElement>): void => {
     e.preventDefault();
     this.setState({ active: false });
-    entryEmotionData.updateEntryEmotion(this.state);
-    window.location.reload();
+    entryEmotionData.deleteEntryEmotion(this.state.id).then(() => {
+      console.log(this.state.id);
+      window.location.reload();
+    });
   };
 
   render(): JSX.Element {

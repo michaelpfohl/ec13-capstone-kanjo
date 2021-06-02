@@ -6,23 +6,42 @@ const entryEmotionsUrl = `${BaseURL}/entry_emotions`;
 
 const addEntryEmotion = (entryEmotion: EntryEmotion): Promise<EntryEmotion> =>
   new Promise((resolve, reject) => {
-      axios.post(`${entryEmotionsUrl}`, entryEmotion).then((response) => {
-          resolve(response);
-      }).catch((error) => reject(error));
+    axios
+      .post(`${entryEmotionsUrl}`, entryEmotion)
+      .then((response) => {
+        resolve(response);
+      })
+      .catch((error) => reject(error));
   });
 
-const getEntryEmotionsByEntryId = (entryId: number): Promise<EntryEmotion[]> => 
+const getEntryEmotionsByEntryId = (entryId: number): Promise<EntryEmotion[]> =>
   new Promise((resolve, reject) => {
-      axios.get(`${entryEmotionsUrl}/entry/${entryId}`).then((response) => {
-          resolve(response.data);
-      }).catch((error) => reject(error));
-  })
+    axios
+      .get(`${entryEmotionsUrl}/entry/${entryId}`)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => reject(error));
+  });
 
-const updateEntryEmotion = (entryEmotion: EntryEmotion): Promise<EntryEmotion> =>
-new Promise((resolve, reject) => {
-    axios.put(`${entryEmotionsUrl}/${entryEmotion.id}`, entryEmotion).then((response) => {
+const updateEntryEmotion = (
+  entryEmotion: EntryEmotion
+): Promise<EntryEmotion> =>
+  new Promise((resolve, reject) => {
+    axios
+      .put(`${entryEmotionsUrl}/${entryEmotion.id}`, entryEmotion)
+      .then((response) => {
         resolve(response);
-    }).catch((error) => reject(error));
-});
+      })
+      .catch((error) => reject(error));
+  });
 
-export default { addEntryEmotion, getEntryEmotionsByEntryId, updateEntryEmotion };
+const deleteEntryEmotion = (entryEmotionId: number): Promise<EntryEmotion> =>
+  axios.put(`${entryEmotionsUrl}/delete/${entryEmotionId}`);
+
+export default {
+  addEntryEmotion,
+  getEntryEmotionsByEntryId,
+  updateEntryEmotion,
+  deleteEntryEmotion,
+};
