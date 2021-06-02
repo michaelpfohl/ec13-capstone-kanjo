@@ -21,7 +21,7 @@ namespace Kanjo.Data
         public List<Entry> GetAllByUser(int userId)
         {
             using var db = new SqlConnection(ConnectionString);
-            var sql = "SELECT * FROM Entries WHERE User_Id = @userId AND Active = 1";
+            var sql = "SELECT * FROM Entries WHERE User_Id = @userId AND Active = 1 ORDER BY Date DESC";
             return db.Query<Entry>(sql, new { userId = userId }).ToList();
         }
 

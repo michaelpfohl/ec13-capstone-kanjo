@@ -33,7 +33,7 @@ class AllEntries extends Component<EntryProps> {
             <thead >
               <th>date</th>
               <th># of emotions</th>
-              <th></th>
+              <th>details</th>
             </thead>
             <tbody>{rows}</tbody>
           </Table>
