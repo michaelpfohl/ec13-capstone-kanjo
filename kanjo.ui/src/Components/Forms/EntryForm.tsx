@@ -136,13 +136,24 @@ class EntryForm extends Component<EntryProps> {
     const emotionIndex = Math.floor(Math.random() * emotions.length);
     const emotion: Emotion = emotions[emotionIndex];
     emotionData.getEmotionById(emotion.id).then((response) => {
-        this.setState({
-            emotion: response.id,
-            emotionName: response.name,
-            prompt: true,
-        })
-    })
+      this.setState({
+        emotion: response.id,
+        emotionName: response.name,
+        prompt: true,
+      });
+    });
   };
+
+  handleDelete = (e: React.ChangeEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    const { entryEmotions, id } = this.state;
+    entryEmotions.forEach((entryEmotion: EntryEmotion) => {
+      entryEmotionData.deleteEntryEmotion(entryEmotion.id);
+    });
+    entryData.deleteEntry(id).then(() => {
+      window.location.reload();
+    });
+  }
 
   render(): JSX.Element {
     const {
@@ -204,6 +215,9 @@ class EntryForm extends Component<EntryProps> {
                 </div>
                 <form className="mx-5" onSubmit={this.prompt}>
                   <button>prompt an emotion</button>
+                </form>
+                <form className="d-flex justify-content-end" onSubmit={this.handleDelete}>
+                  <button>delete</button>
                 </form>
               </div>
               <div className="d-flex justify-content-center flex-wrap">

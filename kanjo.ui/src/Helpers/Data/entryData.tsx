@@ -24,4 +24,7 @@ const getMostRecent = (id: number): Promise<Entry> =>
       .catch((error) => reject(error));
   });
 
-export default { addEntry, getMostRecent };
+const deleteEntry = (id: number): Promise<Entry> => 
+  axios.put(`${entriesUrl}/delete/${id}`);
+
+export default { addEntry, getMostRecent, deleteEntry };
