@@ -8,8 +8,8 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
-import Auth from '../Auth';
-import { User } from '../../Helpers/Types/UserTypes';
+import Auth from "../Auth";
+import { User } from "../../Helpers/Types/UserTypes";
 
 type NavProps = {
   user: User | null;
@@ -22,26 +22,29 @@ const Navigation = ({ user }: NavProps): JSX.Element => {
   return (
     <div>
       <Navbar color="light" light expand="md">
-        <NavbarBrand className="navbar-logo" href="/">kanjo</NavbarBrand>
+        <NavbarBrand className="navbar-logo" href="/">
+          kanjo
+        </NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
               <NavLink href="/entry">entry</NavLink>
             </NavItem>
+            {user && (
+              <NavItem>
+                <NavLink href="/all-entries">review</NavLink>
+              </NavItem>
+            )}
             <NavItem>
-              <NavLink href="/emotions">
-                emotion
-              </NavLink>
+              <NavLink href="/emotions">emotion</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="/examine">
-                examine
-              </NavLink>
+              <NavLink href="/examine">examine</NavLink>
             </NavItem>
           </Nav>
         </Collapse>
-        <Auth user={user}/>
+        <Auth user={user} />
       </Navbar>
     </div>
   );

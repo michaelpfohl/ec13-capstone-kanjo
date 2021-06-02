@@ -28,7 +28,7 @@ namespace Kanjo.Data
         public Entry Get(int id)
         {
             using var db = new SqlConnection(ConnectionString);
-            var sql = "SELECT * FROM Entries WHERE Id = @id";
+            var sql = "SELECT * FROM Entries WHERE Id = @id AND Active = 1";
             return db.QueryFirstOrDefault<Entry>(sql, new { id = id });
         }
 
@@ -65,7 +65,7 @@ namespace Kanjo.Data
         {
             using var db = new SqlConnection(ConnectionString);
             var sql = @"SELECT TOP 1 * FROM Entries 
-                        WHERE user_Id = @userId
+                        WHERE user_Id = @userId AND Active = 1
                         ORDER BY Date DESC";
             return db.QueryFirstOrDefault<Entry>(sql, new { userId = userId });
         }
