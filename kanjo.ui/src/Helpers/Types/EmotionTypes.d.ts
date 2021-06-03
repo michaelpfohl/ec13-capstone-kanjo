@@ -5,6 +5,7 @@ declare module 'EmotionTypes' {
         user_Id: number;
         description: string;
         active: boolean;
+        frequency?: number;
     }
 
     type EmotionProps = {
