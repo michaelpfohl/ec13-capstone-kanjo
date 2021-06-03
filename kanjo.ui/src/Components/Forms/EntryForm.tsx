@@ -12,10 +12,10 @@ import EntryEmotionCard from "../../Components/Cards/EntryEmotionCard";
 
 class EntryForm extends Component<EntryProps> {
   state = {
-    id: this.props.entry?.id || null,
-    user_Id: this.props.entry?.user_Id || null,
-    date: this.props.entry?.date || null,
-    active: this.props.entry?.description || null,
+    id: this.props.entry?.id,
+    user_Id: this.props.entry?.user_Id,
+    date: this.props.entry?.date,
+    active: this.props.entry?.description,
     emotions: [],
     emotion: "",
     emotionName: "",
@@ -27,35 +27,55 @@ class EntryForm extends Component<EntryProps> {
     how_Answer: "",
     why_Answer: "",
     prompt: false,
+    todaysEntry: this.props.todaysEntry,
   };
 
   componentDidMount(): void {
     const { user } = this.props;
-    this.setState({ user_Id: user.id });
+    this.setState({ user_Id: user.id, flow_step: 0, });
     emotionData.getEmotions(user.id).then((response) => {
       this.setState({ emotions: response });
     });
 
-    const today = new Date();
-    entryData
-      .getMostRecent(user.id)
-      .then((response) => {
-        const date = new Date(response.data.date);
-        if (date.getDate() === today.getDate()) {
-          this.setState({
-            id: response.data.id,
-            date: date,
-            active: response.data.active,
-          });
-        }
-      })
-      .then(() => {
+    const { todaysEntry } = this.state;
+    if (todaysEntry) {
+      const today = new Date();
+      entryData
+        .getMostRecent(user.id)
+        .then((response) => {
+          const date = new Date(response.data.date);
+          if (date.getDate() === today.getDate()) {
+            this.setState({
+              id: response.data.id,
+              date: date,
+              active: response.data.active,
+            });
+          }
+        })
+        .then(() => {
+          entryEmotionData
+            .getEntryEmotionsByEntryId(this.state.id)
+            .then((response) => {
+              this.setState({ entryEmotions: response });
+            });
+        });
+    } else {
+      const { entryId } = this.props
+      entryData.getEntry(entryId).then((response) => {
+        const date = new Date(response.date);
+        this.setState({
+          id: response.id,
+          date: date,
+          active: response.active,
+        });
+      }).then(() => {
         entryEmotionData
           .getEntryEmotionsByEntryId(this.state.id)
           .then((response) => {
             this.setState({ entryEmotions: response });
           });
-      });
+      })
+    }
   }
 
   handleEntrySubmit = (e: React.ChangeEvent<HTMLFormElement>): void => {
@@ -63,7 +83,7 @@ class EntryForm extends Component<EntryProps> {
     const entry = {
       user_Id: this.state.user_Id,
     };
-    if (this.state.id === null) {
+    if (!this.state.id) {
       entryData.addEntry(entry).then(() => {
         entryData.getMostRecent(this.state.user_Id).then((response) => {
           const date = new Date(response.data.date);
@@ -89,7 +109,7 @@ class EntryForm extends Component<EntryProps> {
       why_Answer: this.state.why_Answer,
     };
     entryEmotionData.addEntryEmotion(entryEmotion).then(() => {
-      window.location.reload();
+      this.componentDidMount();
     });
   };
 
@@ -146,14 +166,18 @@ class EntryForm extends Component<EntryProps> {
 
   handleDelete = (e: React.ChangeEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    const { entryEmotions, id } = this.state;
+    const { entryEmotions, id, todaysEntry } = this.state;
     entryEmotions.forEach((entryEmotion: EntryEmotion) => {
       entryEmotionData.deleteEntryEmotion(entryEmotion.id);
     });
     entryData.deleteEntry(id).then(() => {
-      window.location.reload();
+      if (todaysEntry) {
+        window.location.reload();
+      } else {
+        window.history.back();
+      }
     });
-  }
+  };
 
   render(): JSX.Element {
     const {
@@ -216,7 +240,10 @@ class EntryForm extends Component<EntryProps> {
                 <form className="mx-5" onSubmit={this.prompt}>
                   <button>prompt an emotion</button>
                 </form>
-                <form className="d-flex justify-content-end" onSubmit={this.handleDelete}>
+                <form
+                  className="d-flex justify-content-end"
+                  onSubmit={this.handleDelete}
+                >
                   <button>delete</button>
                 </form>
               </div>

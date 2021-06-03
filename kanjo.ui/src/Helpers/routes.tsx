@@ -6,6 +6,7 @@ import Entry from '../Views/Entry';
 import Examine from '../Views/Examine';
 import SingleEmotion from '../Views/SingleEmotion';
 import AllEntries from '../Views/AllEntries';
+import SingleEntry from '../Views/SingleEntry';
 
 import { EmotionProps } from '../Helpers/Types/EmotionTypes';
 import { EntryProps } from '../Helpers/Types/EntryTypes';
@@ -19,7 +20,8 @@ export default function Routes({ user, loginClickEvent }: RoutesProps): JSX.Elem
             <Route exact path="/entry" component={(props: EntryProps) => <Entry user={user} loginClickEvent={loginClickEvent} entry={props.entry}/>}/>
             <Route exact path="/examine" component={() => <Examine user={user} loginClickEvent={loginClickEvent}/>}/>
             <Route exact path="/single-emotion" component={(props: EmotionProps) => <SingleEmotion{...props}/>}/>
-            <Route exact path="/all-entries" component={(props: EntryProps) => <AllEntries{...props}/>}/>
+            <Route exact path="/all-entries" component={() => <AllEntries user={user}/>}/>
+            <Route exact path="/single-entry/:id" component={(props: EntryProps) => <SingleEntry{...props} user={user}/>}/>
             <Route component={NotFound}/>
         </Switch>
     );  

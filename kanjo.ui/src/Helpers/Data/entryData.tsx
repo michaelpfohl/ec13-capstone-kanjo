@@ -24,7 +24,33 @@ const getMostRecent = (id: number): Promise<Entry> =>
       .catch((error) => reject(error));
   });
 
-const deleteEntry = (id: number): Promise<Entry> => 
+const getAllEntriesByUser = (userId: number): Promise<Entry[]> =>
+  new Promise((resolve, reject) => {
+    axios
+      .get(`${entriesUrl}/all/${userId}`)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => reject(error));
+  });
+
+const getEntry = (entryId: number): Promise<Entry> =>
+  new Promise((resolve, reject) => {
+    axios
+      .get(`${entriesUrl}/${entryId}`)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => reject(error));
+  });
+
+const deleteEntry = (id: number): Promise<Entry> =>
   axios.put(`${entriesUrl}/delete/${id}`);
 
-export default { addEntry, getMostRecent, deleteEntry };
+export default {
+  addEntry,
+  getMostRecent,
+  getAllEntriesByUser,
+  getEntry,
+  deleteEntry,
+};

@@ -20,7 +20,7 @@ class Entry extends Component<EntryProps> {
           </div>
         )}
         {user && (
-          <EntryForm user={user}/>
+          <EntryForm user={user} todaysEntry={true}/>
         )}
       </div>
     );
