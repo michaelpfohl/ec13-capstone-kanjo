@@ -31,9 +31,8 @@ class EntryForm extends Component<EntryProps> {
   };
 
   componentDidMount(): void {
-    const { user, entry } = this.props;
-    console.log(entry, user);
-    this.setState({ user_Id: user.id });
+    const { user } = this.props;
+    this.setState({ user_Id: user.id, flow_step: 0, });
     emotionData.getEmotions(user.id).then((response) => {
       this.setState({ emotions: response });
     });
@@ -61,11 +60,21 @@ class EntryForm extends Component<EntryProps> {
             });
         });
     } else {
-      entryEmotionData
-        .getEntryEmotionsByEntryId(this.state.id)
-        .then((response) => {
-          this.setState({ entryEmotions: response });
+      const { entryId } = this.props
+      entryData.getEntry(entryId).then((response) => {
+        const date = new Date(response.date);
+        this.setState({
+          id: response.id,
+          date: date,
+          active: response.active,
         });
+      }).then(() => {
+        entryEmotionData
+          .getEntryEmotionsByEntryId(this.state.id)
+          .then((response) => {
+            this.setState({ entryEmotions: response });
+          });
+      })
     }
   }
 
@@ -74,7 +83,7 @@ class EntryForm extends Component<EntryProps> {
     const entry = {
       user_Id: this.state.user_Id,
     };
-    if (this.state.id === null) {
+    if (!this.state.id) {
       entryData.addEntry(entry).then(() => {
         entryData.getMostRecent(this.state.user_Id).then((response) => {
           const date = new Date(response.data.date);
@@ -100,7 +109,7 @@ class EntryForm extends Component<EntryProps> {
       why_Answer: this.state.why_Answer,
     };
     entryEmotionData.addEntryEmotion(entryEmotion).then(() => {
-      window.location.reload();
+      this.componentDidMount();
     });
   };
 
@@ -157,12 +166,16 @@ class EntryForm extends Component<EntryProps> {
 
   handleDelete = (e: React.ChangeEvent<HTMLFormElement>): void => {
     e.preventDefault();
-    const { entryEmotions, id } = this.state;
+    const { entryEmotions, id, todaysEntry } = this.state;
     entryEmotions.forEach((entryEmotion: EntryEmotion) => {
       entryEmotionData.deleteEntryEmotion(entryEmotion.id);
     });
     entryData.deleteEntry(id).then(() => {
-      window.location.reload();
+      if (todaysEntry) {
+        window.location.reload();
+      } else {
+        window.history.back();
+      }
     });
   };
 
