@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Entry } from "../../Helpers/Types/EntryTypes";
 import entryEmotionData from "../../Helpers/Data/entryEmotionData";
+import { Link } from 'react-router-dom'; 
 
 type EntryRowProps = {
   entry: Entry;
@@ -25,7 +26,11 @@ class EntryRow extends Component<EntryRowProps> {
         <tr>
         <td>{date.toDateString()}</td>
         <td>{entryEmotions.length}</td>
-        <td><button>view details</button></td>
+        <td>
+          <Link to={{pathname: `/single-entry/${entry.id}`}}>
+          <button>view details</button>
+          </Link>
+        </td>
       </tr>
     );
   }

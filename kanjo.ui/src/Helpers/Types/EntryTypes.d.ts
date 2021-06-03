@@ -9,7 +9,7 @@ declare module 'EntryTypes' {
     }
 
     type EntryProps = {
-        entry: Entry,
+        entry?: Entry,
         user: User,
         loginClickEvent?: (
             e: React.MouseEvent<HTMLButtonElement, MouseEvent>

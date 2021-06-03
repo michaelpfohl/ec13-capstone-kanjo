@@ -35,8 +35,6 @@ class EmotionForm extends Component<EmotionProps> {
             this.props.toggle();
             this.props.onUpdate();
         });
-    } else {
-      // edit emotion
     }
   };
 
