@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import emotionData from "../Helpers/Data/emotionData";
 import { Emotion, EmotionProps } from "../Helpers/Types/EmotionTypes";
 
 type SingleEmotionState = {
@@ -11,7 +12,10 @@ class SingleEmotion extends Component<EmotionProps> {
   };
 
   componentDidMount = (): void => {
-    console.log(this.props);
+    const { emotion } = this.state;
+    emotionData.getEmotionById(emotion.id).then((response) => {
+      this.setState({ emotion: response });
+    })
   };
 
   render(): JSX.Element {
