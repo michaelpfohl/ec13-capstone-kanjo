@@ -14,6 +14,16 @@ const getEmotions = (userId: number): Promise<Emotion[]> =>
       .catch((error) => reject(error));
   });
 
+const getAllEmotionsWithEntries = (userId: number): Promise<Emotion[]> =>
+  new Promise((resolve, reject) => {
+    axios
+      .get(`${emotionsUrl}/all-with-entries/${userId}`)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => reject(error));
+  });
+
 const getPublicEmotions = (): Promise<Emotion[]> =>
   new Promise((resolve, reject) => {
     axios
@@ -60,6 +70,7 @@ const addEmotion = (emotion: Emotion): Promise<Emotion> =>
 
 export default {
   getEmotions,
+  getAllEmotionsWithEntries,
   getPublicEmotions,
   getEmotionById,
   getEmotionsWithFrequencyByDateRange,

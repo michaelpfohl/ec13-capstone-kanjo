@@ -25,6 +25,15 @@ namespace Kanjo.Data
             return db.Query<Entry>(sql, new { userId = userId }).ToList();
         }
 
+        public List<Entry> GetAllByUserWithinDateRange(int userId, string startDate, string endDate)
+        {
+            using var db = new SqlConnection(ConnectionString);
+            var sql = @"SELECT * FROM Entries 
+                        WHERE User_Id = @userId AND Active = 1 AND Date BETWEEN @startDate AND DATEADD(s,-1,DATEADD(d,1,@endDate))
+                        ORDER BY Date DESC";
+            return db.Query<Entry>(sql, new { userId = userId, startDate = startDate, endDate = endDate }).ToList();
+        }
+
         public Entry Get(int id)
         {
             using var db = new SqlConnection(ConnectionString);

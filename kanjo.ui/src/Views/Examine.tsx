@@ -3,6 +3,7 @@ import { ExamineProps } from "../Helpers/Types/PropTypes";
 import emotionData from "../Helpers/Data/emotionData";
 import { Emotion } from "../Helpers/Types/EmotionTypes";
 import { Table } from "reactstrap";
+import { Link } from "react-router-dom";
 class Examine extends Component<ExamineProps> {
   state = {
     emotions: [],
@@ -12,7 +13,7 @@ class Examine extends Component<ExamineProps> {
 
   componentDidMount(): void {
     const { user } = this.props;
-    emotionData.getEmotions(user?.id).then((response) => {
+    emotionData.getAllEmotionsWithEntries(user?.id).then((response) => {
       this.setState({ emotions: response });
     });
     const startDate = new Date(user?.user_Created_Date);
@@ -35,7 +36,6 @@ class Examine extends Component<ExamineProps> {
     const { user } = this.props;
     const { startDate, endDate } = this.state;
     e.preventDefault();
-    console.log("submit");
     emotionData
       .getEmotionsWithFrequencyByDateRange(user?.id, startDate, endDate)
       .then((response) => {
@@ -50,7 +50,16 @@ class Examine extends Component<ExamineProps> {
         <td>{emotion.name}</td>
         <td>{emotion.frequency}</td>
         <td>
-          <button>details</button>
+          <Link
+            to={{
+              pathname: "/single-emotion",
+              state: {
+                emotion: emotion,
+              },
+            }}
+          >
+            <button>details</button>
+          </Link>
         </td>
       </tr>
     );

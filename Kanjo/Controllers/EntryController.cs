@@ -27,6 +27,12 @@ namespace Kanjo.Controllers
             return Ok(_repo.GetAllByUser(userId));
         }
 
+        [HttpGet("date/{userId}/{startDate}/{endDate}")]
+        public IActionResult GetAllEntriesByUserWithinDateRange(int userId, string startDate, string endDate)
+        {
+            return Ok(_repo.GetAllByUserWithinDateRange(userId, startDate, endDate));
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetEntry(int id)
         {
