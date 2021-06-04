@@ -18,9 +18,7 @@ class AllEntries extends Component<EntryProps> {
   }
 
   entryRow = (entry: Entry): JSX.Element => {
-    return (
-      <EntryRow key={entry.id} entry={entry}/>
-    );
+    return <EntryRow key={entry.id} entry={entry} />;
   };
 
   render(): JSX.Element {
@@ -30,10 +28,12 @@ class AllEntries extends Component<EntryProps> {
       <div className="d-flex justify-content-center">
         <div className="container mt-5">
           <Table bordered className="text-center">
-            <thead >
-              <th>date</th>
-              <th># of emotions</th>
-              <th>details</th>
+            <thead>
+              <tr>
+                <th>date</th>
+                <th># of emotions</th>
+                <th>details</th>
+              </tr>
             </thead>
             <tbody>{rows}</tbody>
           </Table>
