@@ -34,6 +34,20 @@ const getAllEntriesByUser = (userId: number): Promise<Entry[]> =>
       .catch((error) => reject(error));
   });
 
+const getAllEntriesByUserWithinDateRange = (
+  userId: number,
+  startDate: string,
+  endDate: string
+): Promise<Entry[]> =>
+  new Promise((resolve, reject) => {
+    axios
+      .get(`${entriesUrl}/date/${userId}/${startDate}/${endDate}`)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => reject(error));
+  });
+
 const getEntry = (entryId: number): Promise<Entry> =>
   new Promise((resolve, reject) => {
     axios
@@ -51,6 +65,7 @@ export default {
   addEntry,
   getMostRecent,
   getAllEntriesByUser,
+  getAllEntriesByUserWithinDateRange,
   getEntry,
   deleteEntry,
 };

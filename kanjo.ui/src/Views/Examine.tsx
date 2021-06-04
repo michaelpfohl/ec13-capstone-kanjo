@@ -12,7 +12,7 @@ class Examine extends Component<ExamineProps> {
 
   componentDidMount(): void {
     const { user } = this.props;
-    emotionData.getEmotions(user?.id).then((response) => {
+    emotionData.getAllEmotionsWithEntries(user?.id).then((response) => {
       this.setState({ emotions: response });
     });
     const startDate = new Date(user?.user_Created_Date);
@@ -35,7 +35,6 @@ class Examine extends Component<ExamineProps> {
     const { user } = this.props;
     const { startDate, endDate } = this.state;
     e.preventDefault();
-    console.log("submit");
     emotionData
       .getEmotionsWithFrequencyByDateRange(user?.id, startDate, endDate)
       .then((response) => {

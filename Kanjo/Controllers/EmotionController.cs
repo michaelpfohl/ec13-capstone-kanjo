@@ -21,9 +21,15 @@ namespace Kanjo.Controllers
         }
 
         [HttpGet("all/{userId}")]
-        public IActionResult GetAllEmotions(int userId)
+        public IActionResult GetAllEmotionsUserAndPublic(int userId)
         {
-            return Ok(_repo.GetAll(userId));
+            return Ok(_repo.GetAllEmotionsUserAndPublic(userId));
+        }
+
+        [HttpGet("all-with-entries/{userId}")]
+        public IActionResult GetAllEmotionsWithEntries(int userId)
+        {
+            return Ok(_repo.GetAllEmotionsWithEntries(userId));
         }
 
         [HttpGet("date/{userId}/{startDate}/{endDate}")]
