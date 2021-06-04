@@ -3,6 +3,7 @@ import { ExamineProps } from "../Helpers/Types/PropTypes";
 import emotionData from "../Helpers/Data/emotionData";
 import { Emotion } from "../Helpers/Types/EmotionTypes";
 import { Table } from "reactstrap";
+import { Link } from "react-router-dom";
 class Examine extends Component<ExamineProps> {
   state = {
     emotions: [],
@@ -49,7 +50,16 @@ class Examine extends Component<ExamineProps> {
         <td>{emotion.name}</td>
         <td>{emotion.frequency}</td>
         <td>
-          <button>details</button>
+          <Link
+            to={{
+              pathname: "/single-emotion",
+              state: {
+                emotion: emotion,
+              },
+            }}
+          >
+            <button>details</button>
+          </Link>
         </td>
       </tr>
     );
