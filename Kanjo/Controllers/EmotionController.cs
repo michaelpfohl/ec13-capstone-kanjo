@@ -26,6 +26,12 @@ namespace Kanjo.Controllers
             return Ok(_repo.GetAll(userId));
         }
 
+        [HttpGet("date/{userId}/{startDate}/{endDate}")]
+        public IActionResult GetAllWithFrequencyBetweenDateRange(int userId, string startDate, string endDate)
+        {
+            return Ok(_repo.GetAllWithFrequencyBetweenDateRange(userId, startDate, endDate));
+        }
+
         [HttpGet("public")]
         public IActionResult GetAllPublicEmotions()
         {

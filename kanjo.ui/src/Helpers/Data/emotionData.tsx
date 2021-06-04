@@ -14,12 +14,15 @@ const getEmotions = (userId: number): Promise<Emotion[]> =>
       .catch((error) => reject(error));
   });
 
-const getPublicEmotions = (): Promise<Emotion[]> => 
+const getPublicEmotions = (): Promise<Emotion[]> =>
   new Promise((resolve, reject) => {
-    axios.get(`${emotionsUrl}/public`).then((response) => {
-      resolve(response.data);
-    }).catch((error) => reject(error));
-  })
+    axios
+      .get(`${emotionsUrl}/public`)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => reject(error));
+  });
 
 const getEmotionById = (id: number): Promise<Emotion> =>
   new Promise((resolve, reject) => {
@@ -31,16 +34,34 @@ const getEmotionById = (id: number): Promise<Emotion> =>
       .catch((error) => reject(error));
   });
 
-const addEmotion = (emotion: Emotion): Promise<Emotion> => 
+const getEmotionsWithFrequencyByDateRange = (
+  userId: number,
+  startDate: string,
+  endDate: string
+): Promise<Emotion[]> =>
   new Promise((resolve, reject) => {
-    axios.post(`${emotionsUrl}`, emotion).then((response) => {
-        resolve(response.data)
-    }).catch((error) => reject(error));
+    axios
+      .get(`${emotionsUrl}/date/${userId}/${startDate}/${endDate}`)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => reject(error));
+  });
+
+const addEmotion = (emotion: Emotion): Promise<Emotion> =>
+  new Promise((resolve, reject) => {
+    axios
+      .post(`${emotionsUrl}`, emotion)
+      .then((response) => {
+        resolve(response.data);
+      })
+      .catch((error) => reject(error));
   });
 
 export default {
   getEmotions,
   getPublicEmotions,
   getEmotionById,
+  getEmotionsWithFrequencyByDateRange,
   addEmotion,
 };
