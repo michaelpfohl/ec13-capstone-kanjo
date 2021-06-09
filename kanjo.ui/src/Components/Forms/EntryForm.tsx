@@ -368,7 +368,7 @@ class EntryForm extends Component<EntryProps> {
           {id && flow_step === 4 && (
             <div>
               <h2 className="mb-4 question-header">
-                use emotive language to describe what your {emotionName} was
+                describe what your {emotionName} was
                 like today
               </h2>
               <textarea
