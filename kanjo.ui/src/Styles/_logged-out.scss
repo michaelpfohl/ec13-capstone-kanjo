@@ -1,6 +1,6 @@
 .sign-in-circle {
-    background: $SchemeYellow;
-    color: $SchemeNavy;
+    background: $SchemeBlue;
+    color: $SchemeBlack;
     width: 100px;
     height: 100px;
     display: flex;
@@ -11,16 +11,21 @@
     box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
     margin:auto;
     border: none;
+    transition: all .4s ease;
+}
+
+.sign-in-circle:hover {
+    background: $SchemeWhite;
 }
 
 .welcome-container {
     padding: 3rem;
     margin-top: 7%;
-    border-radius: 5px;
+    border-radius: 8px;
 }
 
 .signin-icon {
-    color: $SchemeNavy;
+    color: $SchemeBlack;
     font-size: 50px;
     margin-left: -4px;
 }

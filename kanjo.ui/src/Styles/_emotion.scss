@@ -1,5 +1,5 @@
 .emotion-card {
-    background: green;
+    background: $SchemeWhite;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,4 +10,23 @@
     margin: 2rem;
     -webkit-box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
     box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
+    transition: all .4s ease;
+}
+
+.emotion-card:hover {
+    background: $SchemeBlue;
+}
+
+.emotion-name-container {
+    width: 140px;
+    height: 140px;
+    background: $SchemeBlack;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.emotion-name-text {
+    color: $SchemeBlue;
 }

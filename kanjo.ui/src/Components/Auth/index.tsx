@@ -47,10 +47,10 @@ class Auth extends Component<AuthProps> {
         <div className="d-flex justify-content-center">
           <div className="mx-4">
             <button
-              className="scheme-btn bgc-lightgreen"
+              className="hidden-btn"
               onClick={this.loginClickEvent}
             >
-              Sign In <i className="fas fa-sign-in-alt"></i>
+              <i className="fas fa-sign-in-alt circle-icon"></i>
             </button>
           </div>
         </div>
@@ -64,13 +64,13 @@ class Auth extends Component<AuthProps> {
             </p>
             <div className="mx-4">
               <button
-                className="google-logo ml-4 mr-4 scheme-btn bgc-red"
+                className="hidden-btn"
                 data-toggle="tooltip"
                 data-placement="bottom"
                 title="Log Out"
                 onClick={this.logoutClickEvent}
               >
-                Sign Out  <i className="fas fa-sign-out-alt signout-icon"></i>
+                <i className="fas fa-sign-out-alt signout-icon circle-icon"></i>
               </button>
             </div>
           </div>

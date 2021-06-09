@@ -72,7 +72,7 @@ class Examine extends Component<ExamineProps> {
     return (
       <div className="d-flex justify-content-center m-5">
         {!user && (
-          <div className="text-center welcome-container bgc-green color-white">
+          <div className="text-center welcome-container bgc-black border-blue color-white">
             <h1 className="logged-out-header">view your emotion dashboard</h1>
             <h3 className="mb-5">
               dive deep into what emotions make up your days

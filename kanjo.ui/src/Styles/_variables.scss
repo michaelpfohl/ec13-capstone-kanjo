@@ -1,20 +1,14 @@
-$SchemeRed: #F2506E;
-$SchemeNavy: #273440;
-$SchemeGreen: #527343;
-$SchemeLightGreen: #B0BFA4;
-$SchemeYellow: #F2D857;
 $SchemeWhite: #F1F0F2;
+$SchemeBlack: #191919;
+$SchemeBlue: #38c6d9;
 
-.bgc-red { background-color: $SchemeRed }
-.bgc-navy { background-color: $SchemeNavy }
-.bgc-green { background-color: $SchemeGreen }
-.bgc-lightgreen { background-color: $SchemeLightGreen }
-.bgc-yellow { background-color: $SchemeYellow }
 .bgc-white { background-color: $SchemeWhite }
+.bgc-black { background-color: $SchemeBlack }
+.bgc-blue { background-color: $SchemeBlue }
 
-.color-red { color: $SchemeRed }
-.color-navy { color: $SchemeNavy }
-.color-green { color: $SchemeGreen }
-.color-lightgreen { color: $SchemeLightGreen }
-.color-yellow { color: $SchemeYellow }
 .color-white { color: $SchemeWhite }
+
+.border-blue { border: 4px solid $SchemeBlue }
+.half-border-blue { border: 2px solid $SchemeBlue }
+
+.underline { text-decoration: underline }

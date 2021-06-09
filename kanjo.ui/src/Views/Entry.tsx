@@ -7,8 +7,8 @@ class Entry extends Component<EntryProps> {
     const { user, loginClickEvent } = this.props;
     return (
       <div className="d-flex justify-content-center m-5">
-        <div className="text-center welcome-container bgc-green color-white">
           {!user && (
+        <div className="text-center welcome-container bgc-black border-blue color-white">
             <div>
               <h1 className="logged-out-header">create an entry</h1>
               <h3 className="mb-5">
@@ -19,10 +19,10 @@ class Entry extends Component<EntryProps> {
                 <i className="fas fa-sign-in-alt signin-icon"></i>
               </button>
             </div>
+          </div>
           )}
           {user && <EntryForm user={user} todaysEntry={true} />}
         </div>
-      </div>
     );
   }
 }

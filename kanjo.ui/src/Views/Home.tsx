@@ -7,7 +7,7 @@ class Home extends Component<HomeProps> {
     return (
       <div>
         <div className="d-flex justify-content-center m-5">
-          <div className="text-center welcome-container bgc-green color-white">
+          <div className="text-center welcome-container bgc-black border-blue color-white">
             {!user && (
               <div>
                 <h1 className="logged-out-header">welcome to kanjo</h1>

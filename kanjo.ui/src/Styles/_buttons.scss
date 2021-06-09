@@ -1,13 +1,24 @@
 .scheme-btn {
-    border: none;
-    border-radius: 5px;
+    border: 2px solid $SchemeBlue;
+    background-color: $SchemeBlack;
     -webkit-box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
     box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.1);
     padding: 2px 6px;
-    color: $SchemeWhite;
+    color: $SchemeBlue;
 }
 
 .scheme-btn:hover {
-    filter: saturate(80%);
-    color: $SchemeNavy;
+    color: $SchemeWhite;
   }
+
+.hidden-btn {
+    background: none;
+    border: none;
+}
+
+.continue-btn {
+    border: 2px solid $SchemeBlue;
+    border-left: none;
+    color: $SchemeBlue;
+    font-size: 30px;
+}

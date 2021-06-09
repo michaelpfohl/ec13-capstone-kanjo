@@ -3,11 +3,11 @@ import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
   NavLink,
 } from "reactstrap";
+import { Link } from 'react-router-dom';
 import Auth from "../Auth";
 import { User } from "../../Helpers/Types/UserTypes";
 
@@ -23,25 +23,25 @@ const Navigation = ({ user }: NavProps): JSX.Element => {
     <div>
       <div className="navbar-overlay">
         <Navbar expand="md">
-          <NavbarBrand className="navbar-logo" href="/">
+          <Link className="navbar-logo" to="/">
             kanjo
-          </NavbarBrand>
+          </Link>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="mr-auto" navbar>
               <NavItem>
-                <NavLink href="/entry">entry</NavLink>
+                <NavLink href="/entry"><i className="fas fa-pen-alt circle-icon"></i></NavLink>
               </NavItem>
               {user && (
                 <NavItem>
-                  <NavLink href="/all-entries">review</NavLink>
+                  <NavLink href="/all-entries"><i className="fas fa-book circle-icon"></i></NavLink>
                 </NavItem>
               )}
               <NavItem>
-                <NavLink href="/emotions">emotion</NavLink>
+                <NavLink href="/emotions"><i className="fas fa-smile circle-icon"></i></NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/examine">examine</NavLink>
+                <NavLink href="/examine"><i className="fas fa-search circle-icon"></i></NavLink>
               </NavItem>
             </Nav>
           </Collapse>
