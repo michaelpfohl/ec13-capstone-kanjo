@@ -10,7 +10,7 @@ const EmotionModal = ({ user, onUpdate }: EmotionProps): JSX.Element => {
 
   return (
     <div>
-      <button className="mb-4" onClick={toggle}>add new emotion</button>
+      <button className="mb-4 scheme-btn bgc-green p-2" onClick={toggle}><i className="fas fa-plus-circle"></i> add new emotion</button>
       <Modal isOpen={modal} toggle={toggle}>
         <EmotionForm user={user} toggle={toggle} onUpdate={onUpdate}/>
       </Modal>

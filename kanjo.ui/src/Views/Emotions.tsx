@@ -44,9 +44,6 @@ class Emotions extends Component<EmotionsProps> {
     return (
       <div className="d-flex justify-content-center m-5">
         <div>
-          <div className="d-flex justify-content-center">
-            <h1>emotion</h1>
-          </div>
           {user && (
             <div className="d-flex justify-content-center mt-4">
               <EmotionModal user={user} onUpdate={this.onUpdate} />

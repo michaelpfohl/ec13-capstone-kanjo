@@ -72,14 +72,14 @@ class Examine extends Component<ExamineProps> {
     return (
       <div className="d-flex justify-content-center m-5">
         {!user && (
-          <div className="text-center welcome-container">
-            <h1>view your emotion dashboard</h1>
+          <div className="text-center welcome-container bgc-green color-white">
+            <h1 className="logged-out-header">view your emotion dashboard</h1>
             <h3 className="mb-5">
               dive deep into what emotions make up your days
             </h3>
             <h3 className="mb-3">sign in to get started</h3>
             <button className="sign-in-circle" onClick={loginClickEvent}>
-              sign in
+              <i className="fas fa-sign-in-alt signin-icon"></i>
             </button>
           </div>
         )}

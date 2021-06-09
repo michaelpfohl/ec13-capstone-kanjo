@@ -1,5 +1,6 @@
 .sign-in-circle {
-    background: green;
+    background: $SchemeYellow;
+    color: $SchemeNavy;
     width: 100px;
     height: 100px;
     display: flex;
@@ -13,8 +14,17 @@
 }
 
 .welcome-container {
-    background: lightgray;
     padding: 3rem;
     margin-top: 7%;
     border-radius: 5px;
+}
+
+.signin-icon {
+    color: $SchemeNavy;
+    font-size: 50px;
+    margin-left: -4px;
+}
+
+.logged-out-header {
+    font-size: 45px;
 }

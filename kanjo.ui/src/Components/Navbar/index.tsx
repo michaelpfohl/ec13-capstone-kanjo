@@ -21,31 +21,33 @@ const Navigation = ({ user }: NavProps): JSX.Element => {
   const toggle = () => setIsOpen(!isOpen);
   return (
     <div>
-      <Navbar color="light" light expand="md">
-        <NavbarBrand className="navbar-logo" href="/">
-          kanjo
-        </NavbarBrand>
-        <NavbarToggler onClick={toggle} />
-        <Collapse isOpen={isOpen} navbar>
-          <Nav className="mr-auto" navbar>
-            <NavItem>
-              <NavLink href="/entry">entry</NavLink>
-            </NavItem>
-            {user && (
+      <div className="navbar-overlay">
+        <Navbar expand="md">
+          <NavbarBrand className="navbar-logo" href="/">
+            kanjo
+          </NavbarBrand>
+          <NavbarToggler onClick={toggle} />
+          <Collapse isOpen={isOpen} navbar>
+            <Nav className="mr-auto" navbar>
               <NavItem>
-                <NavLink href="/all-entries">review</NavLink>
+                <NavLink href="/entry">entry</NavLink>
               </NavItem>
-            )}
-            <NavItem>
-              <NavLink href="/emotions">emotion</NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink href="/examine">examine</NavLink>
-            </NavItem>
-          </Nav>
-        </Collapse>
-        <Auth user={user} />
-      </Navbar>
+              {user && (
+                <NavItem>
+                  <NavLink href="/all-entries">review</NavLink>
+                </NavItem>
+              )}
+              <NavItem>
+                <NavLink href="/emotions">emotion</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink href="/examine">examine</NavLink>
+              </NavItem>
+            </Nav>
+          </Collapse>
+          <Auth user={user} />
+        </Navbar>
+      </div>
     </div>
   );
 };
