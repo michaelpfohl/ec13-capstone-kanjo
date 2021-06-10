@@ -58,7 +58,9 @@ class Examine extends Component<ExamineProps> {
               },
             }}
           >
-            <button>details</button>
+            <button className="hidden-btn">
+              <i className="fas fa-eye circle-icon"></i>
+            </button>
           </Link>
         </td>
       </tr>
@@ -72,26 +74,28 @@ class Examine extends Component<ExamineProps> {
     return (
       <div className="d-flex justify-content-center m-5">
         {!user && (
-          <div className="text-center welcome-container">
-            <h1>view your emotion dashboard</h1>
+          <div className="text-center welcome-container bgc-black border-blue color-white">
+            <h1 className="logged-out-header">view your emotion dashboard</h1>
             <h3 className="mb-5">
               dive deep into what emotions make up your days
             </h3>
             <h3 className="mb-3">sign in to get started</h3>
             <button className="sign-in-circle" onClick={loginClickEvent}>
-              sign in
+              <i className="fas fa-sign-in-alt signin-icon"></i>
             </button>
           </div>
         )}
         {user && (
-          <div>
-            <h1>examine</h1>
+          <div className="mt-5">
             <form
               onSubmit={this.handleSubmit}
-              className="d-flex justify-content-around text-center"
+              className="d-flex justify-content-around text-center mb-4"
             >
               <div>
-                <label className="d-block" htmlFor="start">
+                <label
+                  className="d-block filter-header color-blue bold"
+                  htmlFor="start"
+                >
                   start date:
                 </label>
                 <input
@@ -102,11 +106,17 @@ class Examine extends Component<ExamineProps> {
                   value={startDate}
                   min="2018-01-01"
                   max="2999-12-31"
+                  className="filter-input"
                 />
               </div>
-              <button>filter</button>
+              <button className="hidden-btn filter-icon">
+                <i className="fas fa-filter circle-icon"></i>
+              </button>{" "}
               <div>
-                <label className="d-block" htmlFor="end">
+                <label
+                  className="d-block filter-header color-blue bold"
+                  htmlFor="end"
+                >
                   end date:
                 </label>
                 <input
@@ -117,6 +127,7 @@ class Examine extends Component<ExamineProps> {
                   value={endDate}
                   min="2018-01-01"
                   max="2999-12-31"
+                  className="filter-input"
                 />
               </div>
             </form>

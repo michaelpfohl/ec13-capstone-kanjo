@@ -39,9 +39,9 @@ class EntryEmotionForm extends Component<EntryEmotionProps> {
   render(): JSX.Element {
     const { emotion } = this.props;
     return (
-      <div className="text-center">
+      <div className="text-center bgc-black border-blue color-white">
         <div className="d-flex justify-content-center">
-          <h1 className="mb-4">{emotion.name}</h1>
+          <h1 className="mb-4 mt-4">{emotion.name}</h1>
         </div>
         <form className="mb-4 mx-4" onSubmit={this.handleSubmit}>
           <p className="mb-0">
@@ -73,7 +73,7 @@ class EntryEmotionForm extends Component<EntryEmotionProps> {
             required
           />
           <p className="mb-0">
-            use emotive language to describe what your {emotion.name} was like
+            describe what your {emotion.name} was like
             today
           </p>
 
@@ -95,10 +95,14 @@ class EntryEmotionForm extends Component<EntryEmotionProps> {
             className={`form-control-lg m-2 modal-input`}
             required
           />
-          <button id="update">update</button>
+          <button className="hidden-btn" id="update">
+            <i className="fas fa-pen-alt circle-icon"></i>{" "}
+          </button>
         </form>
         <form className="mb-4" onSubmit={this.handleDelete}>
-            <button>delete</button>
+          <button className="hidden-btn">
+            <i className="far fa-trash-alt circle-icon"></i>
+          </button>
         </form>
       </div>
     );

@@ -1,25 +1,60 @@
-@import '~bootstrap/dist/css/bootstrap.min.css';
-@import 'variables';
-@import 'navbar';
-@import 'emotion';
-@import 'logged-out';
-@import 'entry';
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
+@import "variables";
+@import "navbar";
+@import "emotion";
+@import "logged-out";
+@import "entry";
+@import "buttons";
+@import "icons";
+@import "entries";
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: red;
+  background-color: $SchemeTrueBlack !important;
+  background-image: $BackgroundTexture;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
 textarea {
+  width: 100%;
+}
+
+a {
+  text-decoration: none !important;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+}
+
+textarea {
+  background: $SchemeBlack;
+  border: 2px solid $SchemeBlue;
+  color: $SchemeWhite;
+}
+
+table {
+  border: 2px solid $SchemeBlue !important;
+  color: $SchemeWhite !important;
+  background-color: $SchemeBlack;
+}
+
+input {
+  background-color: $SchemeBlack;
+  border: 2px solid $SchemeBlue;
+  color: $SchemeWhite;
   width: 100%;
 }

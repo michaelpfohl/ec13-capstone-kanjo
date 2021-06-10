@@ -1,5 +1,5 @@
 .emotion-card {
-    background: green;
+    background: $SchemeWhite;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -10,4 +10,67 @@
     margin: 2rem;
     -webkit-box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
     box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
+    transition: all .4s ease;
+}
+
+.emotion-card:hover {
+    border: 2px solid $SchemeWhite;
+}
+
+.emotion-card:hover .emotion-name-text {
+    color: $SchemeWhite;
+}
+
+.emotion-name-container {
+    width: 140px;
+    height: 140px;
+    background: $SchemeBlack;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .4s ease;
+}
+
+.emotion-name-text {
+    color: $SchemeBlue;
+    transition: all .4s ease;
+}
+
+.single-emotion-container {
+    width: 70%;
+    border-radius: 7px;
+}
+
+.background-1 {
+    background-image: url(../Assets/Images/background.jpeg);
+    background-size: 100%;
+}
+.background-2 {
+    background-image: url(../Assets/Images/background-2.jpeg);
+    background-size: 100%;
+}
+.background-3 {
+    background-image: url(../Assets/Images/background-3.jpeg);
+    background-size: 100%;
+}
+.background-4 {
+    background-image: url(../Assets/Images/background-4.jpeg);
+    background-size: 100%;
+}
+.background-5 {
+    background-image: url(../Assets/Images/background-5.jpeg);
+    background-size: 100%;
+}
+.background-6 {
+    background-image: url(../Assets/Images/background-6.jpeg);
+    background-size: 100%;
+}
+.background-7 {
+    background-image: url(../Assets/Images/background-7.jpeg);
+    background-size: 100%;
+}
+.background-8 {
+    background-image: url(../Assets/Images/background-8.jpeg);
+    background-size: 100%;
 }

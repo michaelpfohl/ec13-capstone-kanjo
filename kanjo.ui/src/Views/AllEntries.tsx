@@ -52,14 +52,14 @@ class AllEntries extends Component<EntryProps> {
     const { entries, startDate, endDate } = this.state;
     const rows = entries.map(this.entryRow);
     return (
-      <div className="d-flex justify-content-center">
-        <div className="container mt-5">
+      <div className="d-flex justify-content-center mt-5">
+        <div className="container mt-4">
           <form
             onSubmit={this.handleSubmit}
-            className="d-flex justify-content-around text-center"
+            className="d-flex justify-content-around text-center color-blue bold"
           >
             <div>
-              <label className="d-block" htmlFor="start">
+              <label className="d-block filter-header" htmlFor="start">
                 start date:
               </label>
               <input
@@ -70,11 +70,14 @@ class AllEntries extends Component<EntryProps> {
                 value={startDate}
                 min="2018-01-01"
                 max="2999-12-31"
+                className="filter-input"
               />
             </div>
-            <button>filter</button>
+            <button className="hidden-btn filter-icon">
+              <i className="fas fa-filter circle-icon"></i>
+            </button>
             <div>
-              <label className="d-block" htmlFor="end">
+              <label className="d-block filter-header" htmlFor="end">
                 end date:
               </label>
               <input
@@ -85,10 +88,11 @@ class AllEntries extends Component<EntryProps> {
                 value={endDate}
                 min="2018-01-01"
                 max="2999-12-31"
+                className="filter-input"
               />
             </div>
           </form>
-          <Table bordered className="text-center">
+          <Table bordered className="text-center mt-4">
             <thead>
               <tr>
                 <th>date</th>

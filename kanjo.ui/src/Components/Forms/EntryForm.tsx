@@ -32,7 +32,7 @@ class EntryForm extends Component<EntryProps> {
 
   componentDidMount(): void {
     const { user } = this.props;
-    this.setState({ user_Id: user.id, flow_step: 0, });
+    this.setState({ user_Id: user.id, flow_step: 0 });
     emotionData.getEmotions(user.id).then((response) => {
       this.setState({ emotions: response });
     });
@@ -60,21 +60,24 @@ class EntryForm extends Component<EntryProps> {
             });
         });
     } else {
-      const { entryId } = this.props
-      entryData.getEntry(entryId).then((response) => {
-        const date = new Date(response.date);
-        this.setState({
-          id: response.id,
-          date: date,
-          active: response.active,
-        });
-      }).then(() => {
-        entryEmotionData
-          .getEntryEmotionsByEntryId(this.state.id)
-          .then((response) => {
-            this.setState({ entryEmotions: response });
+      const { entryId } = this.props;
+      entryData
+        .getEntry(entryId)
+        .then((response) => {
+          const date = new Date(response.date);
+          this.setState({
+            id: response.id,
+            date: date,
+            active: response.active,
           });
-      })
+        })
+        .then(() => {
+          entryEmotionData
+            .getEntryEmotionsByEntryId(this.state.id)
+            .then((response) => {
+              this.setState({ entryEmotions: response });
+            });
+        });
     }
   }
 
@@ -196,189 +199,251 @@ class EntryForm extends Component<EntryProps> {
         </option>
       );
     };
-    const circles = (entryEmotion: EntryEmotion): JSX.Element => {
+    const circles = (entryEmotion: EntryEmotion, background: number): JSX.Element => {
       return (
-        <EntryEmotionCard entryEmotion={entryEmotion} key={entryEmotion.id} />
+        <EntryEmotionCard entryEmotion={entryEmotion} key={entryEmotion.id} background={background}/>
       );
     };
+
+    const assignBackground = (emotions: Emotion[]) => {
+      const cards: Emotion[] = [];
+      let counter = 0;
+      emotions.forEach((emotion) => {
+        counter++;
+        if (counter >= 9) counter = 1;
+        cards.push(circles(emotion, counter));
+      })
+      return cards;
+    }
+
     const emotionDropdown = emotions.map(options);
-    const entryEmotionCircles = entryEmotions.map(circles);
     return (
-      <div className="entry-container">
+      <div className="entry-container bgc-black color-white border-blue">
         <div>
           {!id && (
             <div>
               <h1>start an entry for the day</h1>
               <div className="d-flex justify-content-center mt-4 mb-4">
                 <form onSubmit={this.handleEntrySubmit}>
-                  <button className="new-entry-circle">new entry</button>
+                  <button className="new-entry-circle">
+                    <i className="fas fa-plus-square addentry-icon"></i>
+                  </button>
                 </form>
               </div>
             </div>
           )}
           {id && flow_step === 0 && !prompt && (
             <div className="text-center">
-              <h1 className="mb-4">{date.toDateString()}</h1>
-              <div className="d-flex justify-content-around">
-                <div className="mx-5">
-                  <form onSubmit={this.nextFlowStep}>
-                    <select
-                      name="emotion"
-                      onChange={this.handleChange}
-                      value={this.state.emotion}
-                      required
-                      className="emotion-dropdown"
-                    >
-                      <option selected disabled hidden value="">
-                        select an emotion
-                      </option>
-                      {emotionDropdown}
-                    </select>
-                    <button>continue</button>
-                  </form>
-                </div>
+              <h1 className="mb-4 underline">{date.toDateString()}</h1>
+              <div className="d-flex justify-content-center">
+                <form
+                  onSubmit={this.nextFlowStep}
+                  className="d-flex justify-content-center"
+                >
+                  <select
+                    name="emotion"
+                    onChange={this.handleChange}
+                    value={this.state.emotion}
+                    required
+                    className="emotion-dropdown"
+                  >
+                    <option selected disabled hidden value="">
+                      select an emotion
+                    </option>
+                    {emotionDropdown}
+                  </select>
+                  <button className="bgc-black continue-btn continue-btn-container"><i className="fas fa-forward continue-icon"></i></button>
+                </form>
+              </div>
+              <div className="d-flex justify-content-center mt-4">
                 <form className="mx-5" onSubmit={this.prompt}>
-                  <button>prompt an emotion</button>
+                  <button className="hidden-btn">
+                    <i className="fas fa-random circle-icon"></i>
+                  </button>
                 </form>
                 <form
-                  className="d-flex justify-content-end"
+                  className="d-flex justify-content-end mx-5"
                   onSubmit={this.handleDelete}
                 >
-                  <button>delete</button>
+                  <button className="hidden-btn">
+                    <i className="far fa-trash-alt circle-icon"></i>
+                  </button>
                 </form>
               </div>
               <div className="d-flex justify-content-center flex-wrap">
-                {entryEmotionCircles}
+                {assignBackground(entryEmotions)}
               </div>
             </div>
           )}
           {prompt && (
             <div>
-              <h2>did you feel {emotionName} today?</h2>
-              <div className="d-flex justify-content-around">
+              <h2 className="mb-5 question-header">did you feel {emotionName} today?</h2>
+              <div className="d-flex justify-content-around control-container">
                 <form onSubmit={this.backPromptStep}>
-                  <button>back</button>
+                  <button className="hidden-btn">
+                    <i className="fas fa-backward circle-icon"></i>
+                  </button>
                 </form>
                 <form onSubmit={this.prompt}>
-                  <button>new emotion</button>
+                  <button className="hidden-btn">
+                    <i className="fas fa-sync-alt circle-icon"></i>
+                  </button>
                 </form>
                 <form onSubmit={this.nextFlowStep}>
-                  <button>continue</button>
+                  <button className="hidden-btn">
+                    <i className="fas fa-forward circle-icon"></i>
+                  </button>
                 </form>
               </div>
             </div>
           )}
           {id && flow_step === 1 && (
             <div>
-              <h2>where were you when you felt {emotionName} today?</h2>
+              <h2 className="mb-4 question-header">
+                where were you when you felt {emotionName} today?
+              </h2>
               <textarea
+                rows={7}
                 name="where_Answer"
                 value={this.state.where_Answer}
                 onChange={this.handleChange}
-                className={`form-control-lg m-2 modal-input`}
+                className={`form-control-lg`}
                 required
               />
-              <div className="d-flex justify-content-between">
+              <div className="d-flex justify-content-between control-container">
                 <form onSubmit={this.backFlowStep}>
-                  <button>back</button>
+                  <button className="hidden-btn">
+                    <i className="fas fa-backward circle-icon"></i>
+                  </button>
                 </form>
                 <form onSubmit={this.nextFlowStep}>
-                  <button>next</button>
+                  <button className="hidden-btn">
+                    <i className="fas fa-forward circle-icon"></i>
+                  </button>
                 </form>
               </div>
             </div>
           )}
           {id && flow_step === 2 && (
             <div>
-              <h2>who caused you to feel {emotionName} today?</h2>
+              <h2 className="mb-4 question-header">
+                who caused you to feel {emotionName} today?
+              </h2>
               <textarea
+                rows={7}
                 name="who_Answer"
                 value={this.state.who_Answer}
                 onChange={this.handleChange}
-                className={`form-control-lg m-2 modal-input`}
+                className={`form-control-lg`}
                 required
               />
-              <div className="d-flex justify-content-between">
+              <div className="d-flex justify-content-between control-container">
                 <form onSubmit={this.backFlowStep}>
-                  <button>back</button>
+                  <button className="hidden-btn">
+                    <i className="fas fa-backward circle-icon"></i>
+                  </button>
                 </form>
                 <form onSubmit={this.nextFlowStep}>
-                  <button>next</button>
+                  <button className="hidden-btn">
+                    <i className="fas fa-forward circle-icon"></i>
+                  </button>
                 </form>
               </div>
             </div>
           )}
           {id && flow_step === 3 && (
             <div>
-              <h2>when did you feel {emotionName} today?</h2>
+              <h2 className="mb-4 question-header">when did you feel {emotionName} today?</h2>
               <textarea
+                rows={7}
                 name="when_Answer"
                 value={this.state.when_Answer}
                 onChange={this.handleChange}
-                className={`form-control-lg m-2 modal-input`}
+                className={`form-control-lg`}
                 required
               />
-              <div className="d-flex justify-content-between">
+              <div className="d-flex justify-content-between control-container">
                 <form onSubmit={this.backFlowStep}>
-                  <button>back</button>
+                  <button className="hidden-btn">
+                    <i className="fas fa-backward circle-icon"></i>
+                  </button>
                 </form>
                 <form onSubmit={this.nextFlowStep}>
-                  <button>next</button>
+                  <button className="hidden-btn">
+                    <i className="fas fa-forward circle-icon"></i>
+                  </button>
                 </form>
               </div>
             </div>
           )}
           {id && flow_step === 4 && (
             <div>
-              <h2>
-                use emotive language to describe what your {emotionName} was
+              <h2 className="mb-4 question-header">
+                describe what your {emotionName} was
                 like today
               </h2>
               <textarea
+                rows={7}
                 name="how_Answer"
                 value={this.state.how_Answer}
                 onChange={this.handleChange}
-                className={`form-control-lg m-2 modal-input`}
+                className={`form-control-lg`}
                 required
               />
-              <div className="d-flex justify-content-between">
+              <div className="d-flex justify-content-between control-container">
                 <form onSubmit={this.backFlowStep}>
-                  <button>back</button>
+                  <button className="hidden-btn">
+                    <i className="fas fa-backward circle-icon"></i>
+                  </button>
                 </form>
                 <form onSubmit={this.nextFlowStep}>
-                  <button>next</button>
+                  <button className="hidden-btn">
+                    <i className="fas fa-forward circle-icon"></i>
+                  </button>
                 </form>
               </div>
             </div>
           )}
           {id && flow_step === 5 && (
             <div>
-              <h2>why do you think you felt {emotionName} today?</h2>
+              <h2 className="mb-4 question-header">
+                why do you think you felt {emotionName} today?
+              </h2>
               <textarea
+                rows={7}
                 name="why_Answer"
                 value={this.state.why_Answer}
                 onChange={this.handleChange}
-                className={`form-control-lg m-2 modal-input`}
+                className={`form-control-lg`}
                 required
               />
-              <div className="d-flex justify-content-between">
+              <div className="d-flex justify-content-between control-container">
                 <form onSubmit={this.backFlowStep}>
-                  <button>back</button>
+                  <button className="hidden-btn">
+                    <i className="fas fa-backward circle-icon"></i>
+                  </button>
                 </form>
                 <form onSubmit={this.nextFlowStep}>
-                  <button>next</button>
+                  <button className="hidden-btn">
+                    <i className="fas fa-forward circle-icon"></i>
+                  </button>
                 </form>
               </div>
             </div>
           )}
           {id && flow_step === 6 && (
             <div>
-              <div className="d-flex justify-content-between">
-                <form onSubmit={this.backFlowStep}>
-                  <button>back</button>
+              <h2 className="mb-4 question-header">submit emotion?</h2>
+              <div className="d-flex justify-content-center control-container">
+                <form onSubmit={this.backFlowStep} className="mx-5">
+                  <button className="hidden-btn">
+                    <i className="fas fa-backward circle-icon"></i>
+                  </button>
                 </form>
-                <form onSubmit={this.handleEntryEmotionSubmit}>
-                  <button>submit emotion</button>
+                <form onSubmit={this.handleEntryEmotionSubmit} className="mx-5">
+                  <button className="hidden-btn">
+                    <i className="far fa-plus-square circle-icon"></i>
+                  </button>
                 </form>
               </div>
             </div>

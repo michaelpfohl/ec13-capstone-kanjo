@@ -47,10 +47,10 @@ class Auth extends Component<AuthProps> {
         <div className="d-flex justify-content-center">
           <div className="mx-4">
             <button
-              className="signin-button google-logo"
+              className="hidden-btn"
               onClick={this.loginClickEvent}
             >
-              Sign In
+              <i className="fas fa-sign-in-alt circle-icon"></i>
             </button>
           </div>
         </div>
@@ -59,16 +59,18 @@ class Auth extends Component<AuthProps> {
       return (
         <div className="d-flex justify-content-center">
           <div className="auth-container d-flex align-items-center">
-            <p className={`m-auto greeting-text`}>Hello, {user?.name}!</p>
+            <p className={`m-auto greeting-text color-white`}>
+              Hello, {user?.name}!
+            </p>
             <div className="mx-4">
               <button
-                className="google-logo ml-4 mr-4 logout-button"
+                className="hidden-btn"
                 data-toggle="tooltip"
                 data-placement="bottom"
                 title="Log Out"
                 onClick={this.logoutClickEvent}
               >
-                Sign Out
+                <i className="fas fa-sign-out-alt signout-icon circle-icon"></i>
               </button>
             </div>
           </div>

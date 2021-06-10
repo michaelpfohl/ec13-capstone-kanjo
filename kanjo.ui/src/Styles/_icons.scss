@@ -1,0 +1,29 @@
+.signout-icon {
+    transform: rotate(180deg);
+}
+.circle-icon {
+    background-color: $SchemeBlack;
+    color: $SchemeBlue;
+    padding: 10px;
+    font-size: 15px;
+    border-radius: 50%;
+    border: 2px solid $SchemeBlue;
+    transition: all .4s ease;
+}
+
+.circle-icon:hover {
+    border: 2px solid $SchemeWhite;
+    color: $SchemeWhite;
+} 
+
+.filter-icon {
+    margin-top: 26px;
+}
+
+.continue-icon {
+    color: $SchemeWhite;
+    padding: 0 5px;
+}
+.continue-icon:hover {
+    color: $SchemeBlue;
+}

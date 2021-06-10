@@ -13,6 +13,7 @@ declare module 'EntryEmotionTypes' {
     type EntryEmotionProps = {
         entryEmotion: EntryEmotion;
         emotion: Emotion;
+        background: number;
     }
 }
 

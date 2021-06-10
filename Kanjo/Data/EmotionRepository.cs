@@ -23,7 +23,7 @@ namespace Kanjo.Data
             using var db = new SqlConnection(ConnectionString);
             var sql = @"SELECT e.id, e.Active, e.Name, e.User_Id, COUNT(ee.Entry_Id) AS Frequency FROM Emotions AS e
                         LEFT JOIN Entry_Emotions AS ee ON e.Id = ee.Emotion_Id
-                        WHERE (e.User_Id = 6 OR e.User_Id = 8)
+                        WHERE (e.User_Id = 6 OR e.User_Id = @userId)
                         GROUP BY e.Id, e.Name, e.User_Id, e.Active
                         ORDER BY count(ee.Entry_Id) DESC";
             return db.Query<Emotion>(sql, new { userId = userId }).ToList();
