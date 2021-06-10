@@ -37,10 +37,21 @@ class Emotions extends Component<EmotionsProps> {
   render(): JSX.Element {
     const { emotions } = this.state;
     const { user } = this.props;
-    const emotionCard = (emotion: Emotion): JSX.Element => {
-      return <EmotionCard key={emotion.id} emotion={emotion} />;
+    const emotionCard = (emotion: Emotion, background: number): JSX.Element => {
+      return <EmotionCard key={emotion.id} emotion={emotion} background={background}/>;
     };
-    const cards = emotions.map(emotionCard);
+
+    const assignBackground = (emotions: Emotion[]) => {
+      const cards: Emotion[] = [];
+      let counter = 0;
+      emotions.forEach((emotion) => {
+        counter++;
+        if (counter >= 9) counter = 1;
+        cards.push(emotionCard(emotion, counter));
+      })
+      return cards;
+    }
+
     return (
       <div className="d-flex justify-content-center m-5">
         <div>
@@ -50,7 +61,7 @@ class Emotions extends Component<EmotionsProps> {
             </div>
           )}
           <div className="d-flex container justify-content-around flex-wrap">
-            {cards}
+            {assignBackground(emotions)}
           </div>
         </div>
       </div>

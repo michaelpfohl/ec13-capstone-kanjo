@@ -14,7 +14,11 @@
 }
 
 .emotion-card:hover {
-    background: $SchemeBlue;
+    background: $SchemeWhite;
+}
+
+.emotion-card:hover .emotion-name-text {
+    color: $SchemeWhite;
 }
 
 .emotion-name-container {
@@ -29,4 +33,38 @@
 
 .emotion-name-text {
     color: $SchemeBlue;
+}
+
+.background-1 {
+    background-image: url(../Assets/Images/background.jpeg);
+    background-size: 100%;
+}
+
+.background-2 {
+    background-image: url(../Assets/Images/background-2.jpeg);
+    background-size: 100%;
+}
+.background-3 {
+    background-image: url(../Assets/Images/background-3.jpeg);
+    background-size: 100%;
+}
+.background-4 {
+    background-image: url(../Assets/Images/background-4.jpeg);
+    background-size: 100%;
+}
+.background-5 {
+    background-image: url(../Assets/Images/background-5.jpeg);
+    background-size: 100%;
+}
+.background-6 {
+    background-image: url(../Assets/Images/background-6.jpeg);
+    background-size: 100%;
+}
+.background-7 {
+    background-image: url(../Assets/Images/background-7.jpeg);
+    background-size: 100%;
+}
+.background-8 {
+    background-image: url(../Assets/Images/background-8.jpeg);
+    background-size: 100%;
 }

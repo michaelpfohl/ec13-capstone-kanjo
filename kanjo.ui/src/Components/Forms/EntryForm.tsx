@@ -199,13 +199,24 @@ class EntryForm extends Component<EntryProps> {
         </option>
       );
     };
-    const circles = (entryEmotion: EntryEmotion): JSX.Element => {
+    const circles = (entryEmotion: EntryEmotion, background: number): JSX.Element => {
       return (
-        <EntryEmotionCard entryEmotion={entryEmotion} key={entryEmotion.id} />
+        <EntryEmotionCard entryEmotion={entryEmotion} key={entryEmotion.id} background={background}/>
       );
     };
+
+    const assignBackground = (emotions: Emotion[]) => {
+      const cards: Emotion[] = [];
+      let counter = 0;
+      emotions.forEach((emotion) => {
+        counter++;
+        if (counter >= 9) counter = 1;
+        cards.push(circles(emotion, counter));
+      })
+      return cards;
+    }
+
     const emotionDropdown = emotions.map(options);
-    const entryEmotionCircles = entryEmotions.map(circles);
     return (
       <div className="entry-container bgc-black color-white border-blue">
         <div>
@@ -241,7 +252,7 @@ class EntryForm extends Component<EntryProps> {
                     </option>
                     {emotionDropdown}
                   </select>
-                  <button className="bgc-black continue-btn">continue</button>
+                  <button className="bgc-black continue-btn"><i className="fas fa-forward continue-icon"></i></button>
                 </form>
               </div>
               <div className="d-flex justify-content-center mt-4">
@@ -260,7 +271,7 @@ class EntryForm extends Component<EntryProps> {
                 </form>
               </div>
               <div className="d-flex justify-content-center flex-wrap">
-                {entryEmotionCircles}
+                {assignBackground(entryEmotions)}
               </div>
             </div>
           )}

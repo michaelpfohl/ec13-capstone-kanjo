@@ -49,3 +49,10 @@ table {
   border: 2px solid $SchemeBlue !important;
   color: $SchemeWhite !important;
 }
+
+input {
+  background-color: $SchemeBlack;
+  border: 2px solid $SchemeBlue;
+  color: $SchemeWhite;
+  width: 100%;
+}

@@ -40,7 +40,7 @@ class EmotionForm extends Component<EmotionProps> {
 
   render(): JSX.Element {
     return (
-      <div className="d-flex justify-content-center">
+      <div className="d-flex justify-content-center bgc-black border-blue">
         <div className="p-3">
           <div className="d-flex justify-content-center add-emotion-input-container">
             <form onSubmit={this.handleSubmit} className="add-emotion-form">
@@ -66,8 +66,8 @@ class EmotionForm extends Component<EmotionProps> {
                 />
               </div>
               <div className="d-flex justify-content-center">
-                <button className="submit-new-emotion-button form-button form-button-text mt-1 mb-1">
-                  Submit
+                <button className="submit-new-emotion-button form-button form-button-text mt-1 mb-1 hidden-btn">
+                  <i className="far fa-plus-square circle-icon"></i>
                 </button>
               </div>
             </form>

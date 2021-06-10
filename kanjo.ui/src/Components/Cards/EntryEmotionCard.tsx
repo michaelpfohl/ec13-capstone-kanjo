@@ -20,10 +20,10 @@ class EntryEmotionCard extends Component<EntryEmotionProps> {
     }
 
     render(): JSX.Element {
-        const { entryEmotion } = this.props;
+        const { entryEmotion, background } = this.props;
         const { emotion } = this.state;
         return (
-           <EntryEmotionModal entryEmotion={entryEmotion} emotion={emotion}/>
+           <EntryEmotionModal entryEmotion={entryEmotion} emotion={emotion} background={background}/>
         )
     }
 }

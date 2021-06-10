@@ -4,11 +4,12 @@ import { Link } from "react-router-dom";
 
 type EmotionCardProps = {
   emotion: Emotion;
+  background: number;
 };
 
 class EmotionCard extends Component<EmotionCardProps> {
   render(): JSX.Element {
-    const { emotion } = this.props;
+    const { emotion, background } = this.props;
     return (
       <Link
         to={{
@@ -18,7 +19,7 @@ class EmotionCard extends Component<EmotionCardProps> {
           },
         }}
       >
-        <div className="emotion-card">
+        <div className={`emotion-card background-${background} half-border-blue`}>
           <div className="emotion-name-container">
             <div className="emotion-name-text">{emotion.name}</div>
           </div>
