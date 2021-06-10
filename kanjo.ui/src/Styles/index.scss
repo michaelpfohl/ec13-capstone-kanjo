@@ -16,7 +16,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: $SchemeBlack !important;
+  background-color: $SchemeTrueBlack !important;
+  background-image: $BackgroundTexture;
 }
 
 code {
@@ -48,6 +49,7 @@ textarea {
 table {
   border: 2px solid $SchemeBlue !important;
   color: $SchemeWhite !important;
+  background-color: $SchemeBlack;
 }
 
 input {

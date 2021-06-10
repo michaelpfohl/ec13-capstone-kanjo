@@ -21,10 +21,10 @@ class SingleEmotion extends Component<EmotionProps> {
   render(): JSX.Element {
     const { emotion } = this.state;
     return (
-      <div className="d-flex justify-content-center mt-5">
-        <div>
-          <div className="d-flex justify-content-center">
-            <h1>{emotion.name}</h1>
+      <div className="d-flex m-auto justify-content-center bgc-black mt-5 color-white border-blue single-emotion-container">
+        <div className="mb-4">
+          <div className="d-flex justify-content-center mt-4">
+            <h1>• {emotion.name} •</h1>
           </div>
           {emotion.description}
         </div>

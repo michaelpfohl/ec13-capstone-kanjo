@@ -5,9 +5,15 @@
 .filter-input {
   background-color: $SchemeBlack;
   border: 2px solid $SchemeBlue;
+  border-radius: 5px;
   color: $SchemeWhite;
   font-size: 18px;
   padding: 5px;
+  transition: all .4s ease;
+}
+
+.filter-input:hover {
+  border: 2px solid $SchemeWhite;
 }
 
 ::-webkit-calendar-picker-indicator {

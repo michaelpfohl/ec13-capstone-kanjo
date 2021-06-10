@@ -252,7 +252,7 @@ class EntryForm extends Component<EntryProps> {
                     </option>
                     {emotionDropdown}
                   </select>
-                  <button className="bgc-black continue-btn"><i className="fas fa-forward continue-icon"></i></button>
+                  <button className="bgc-black continue-btn continue-btn-container"><i className="fas fa-forward continue-icon"></i></button>
                 </form>
               </div>
               <div className="d-flex justify-content-center mt-4">

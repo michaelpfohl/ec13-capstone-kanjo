@@ -14,7 +14,7 @@
 }
 
 .emotion-card:hover {
-    background: $SchemeWhite;
+    border: 2px solid $SchemeWhite;
 }
 
 .emotion-card:hover .emotion-name-text {
@@ -29,17 +29,23 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: all .4s ease;
 }
 
 .emotion-name-text {
     color: $SchemeBlue;
+    transition: all .4s ease;
+}
+
+.single-emotion-container {
+    width: 70%;
+    border-radius: 7px;
 }
 
 .background-1 {
     background-image: url(../Assets/Images/background.jpeg);
     background-size: 100%;
 }
-
 .background-2 {
     background-image: url(../Assets/Images/background-2.jpeg);
     background-size: 100%;

@@ -1,9 +1,11 @@
 $SchemeWhite: #F1F0F2;
-$SchemeBlack: #191919;
+$SchemeBlack: #0a0a0a;
+$SchemeTrueBlack: #000;
 $SchemeBlue: #38c6d9;
 
 .bgc-white { background-color: $SchemeWhite }
 .bgc-black { background-color: $SchemeBlack }
+.bgc-true-black {background-color: $SchemeTrueBlack;}
 .bgc-blue { background-color: $SchemeBlue }
 
 .color-white { color: $SchemeWhite }
@@ -14,3 +16,6 @@ $SchemeBlue: #38c6d9;
 
 .underline { text-decoration: underline }
 .bold {font-weight: bold }
+
+$BackgroundTexture: url("https://www.transparenttextures.com/patterns/low-contrast-linen.png");
+$ComponentTexture: url("https://www.transparenttextures.com/patterns/black-linen.png");
