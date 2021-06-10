@@ -7,6 +7,7 @@
 @import "entry";
 @import "buttons";
 @import "icons";
+@import "entries";
 
 body {
   margin: 0;
@@ -42,4 +43,9 @@ textarea {
   background: $SchemeBlack;
   border: 2px solid $SchemeBlue;
   color: $SchemeWhite;
+}
+
+table {
+  border: 2px solid $SchemeBlue !important;
+  color: $SchemeWhite !important;
 }

@@ -28,7 +28,7 @@ class EntryRow extends Component<EntryRowProps> {
         <td>{entryEmotions.length}</td>
         <td>
           <Link to={{pathname: `/single-entry/${entry.id}`}}>
-          <button>view details</button>
+          <button className="hidden-btn"><i className="fas fa-eye circle-icon"></i></button>
           </Link>
         </td>
       </tr>

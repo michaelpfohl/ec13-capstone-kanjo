@@ -1,0 +1,16 @@
+.filter-header {
+  font-size: 18px;
+}
+
+.filter-input {
+  background-color: $SchemeBlack;
+  border: 2px solid $SchemeBlue;
+  color: $SchemeWhite;
+  font-size: 18px;
+  padding: 5px;
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
