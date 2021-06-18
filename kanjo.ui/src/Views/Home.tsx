@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { HomeProps } from "../Helpers/Types/PropTypes";
+import Sketch from '../Components/Sketch';
 
 class Home extends Component<HomeProps> {
   render(): JSX.Element {
     const { user, loginClickEvent } = this.props;
+
     return (
       <div>
         <div className="d-flex justify-content-center m-5">
@@ -26,6 +28,7 @@ class Home extends Component<HomeProps> {
                 <h3 className="mb-5">
                   a self guided exploration into your daily emotions
                 </h3>
+                <Sketch/>
               </div>
             )}
           </div>
