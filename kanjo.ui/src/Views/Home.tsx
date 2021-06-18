@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { HomeProps } from "../Helpers/Types/PropTypes";
-import Sketch from '../Components/Sketch';
+import LineExplosion from '../Components/Sketch/LineExplosion';
 
 class Home extends Component<HomeProps> {
   render(): JSX.Element {
@@ -8,7 +8,7 @@ class Home extends Component<HomeProps> {
 
     return (
       <div>
-        <div className="d-flex justify-content-center m-5">
+        <div className="d-flex justify-content-center mb-5">
           <div className="text-center welcome-container bgc-black border-blue color-white">
             {!user && (
               <div>
@@ -25,10 +25,10 @@ class Home extends Component<HomeProps> {
             {user && (
               <div>
                 <h1>welcome to kanjo</h1>
-                <h3 className="mb-5">
+                <h3 className="mb-3">
                   a self guided exploration into your daily emotions
                 </h3>
-                <Sketch/>
+                <LineExplosion/>
               </div>
             )}
           </div>

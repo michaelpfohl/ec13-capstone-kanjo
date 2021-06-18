@@ -1,14 +1,14 @@
 import React, { Component, createRef } from "react";
 import p5 from "p5";
 
-class Sketch extends Component {
+class LineExplosion extends Component {
   private myRef = createRef<HTMLDivElement>();
 
   sketch = (sketch: p5): void => {
     sketch.setup = () => {
-      sketch.createCanvas(600, 600);
-      sketch.background(0);
-      sketch.frameRate(1);
+      sketch.createCanvas(600, 600).parent('renderTarget');
+      sketch.background('#0a0a0a');
+      sketch.frameRate(4);
       sketch.noFill();
       sketch.strokeWeight(2);
     };
@@ -20,8 +20,11 @@ class Sketch extends Component {
           sketch.random(["#474747", "#ffffff", "#c9c9c9", "#adadad", "#e3e3e3"])
         );
       }
-      sketch.stroke("#adada9");
+      sketch.stroke("#38c6d9");
       sketch.square(10, 10, 580);
+      sketch.stroke(
+        sketch.random(["#474747", "#ffffff", "#c9c9c9", "#adadad", "#e3e3e3"])
+      );
     };
   };
 
@@ -30,8 +33,12 @@ class Sketch extends Component {
   }
 
   render(): JSX.Element {
-    return <div ref={this.myRef}></div>;
+    return (
+      <div>
+        <div id="renderTarget"></div>
+      </div>
+    );
   }
 }
 
-export default Sketch;
+export default LineExplosion;
