@@ -1,5 +1,6 @@
 import React, { Component, createRef } from "react";
 import p5 from "p5";
+import { EmotionProps } from '../../Helpers/Types/EmotionTypes';
 
 type Particle = {
   update: () => void;
@@ -10,27 +11,30 @@ type Particle = {
   edges: () => void;
 };
 
-class Sketch extends Component {
+class Sketch extends Component<EmotionProps> {
   myRef = createRef<HTMLDivElement>();
 
   sketch = (sketch: p5): void => {
-    const inc = 0.1;
-    const scl = 30;
+    const { emotion } = this.props;
+    const inc = emotion.increment;
+    const scl = emotion.scale;
     let zoff = 0;
     const particles: Particle[] = [];
     let flowField: p5.Vector[] = [];
     let cols = 0;
     let rows = 0;
+    const frameRate = emotion.frameRate;
 
     sketch.setup = () => {
       sketch.createCanvas(600, 600).parent("renderTarget");
       sketch.background("#0a0a0a");
       sketch.noFill();
       sketch.strokeWeight(1);
+      sketch.frameRate(frameRate);
       cols = sketch.floor(sketch.width / scl);
       rows = sketch.floor(sketch.height / scl);
       flowField = new Array(cols * rows);
-      for (let i = 0; i < 1000; i++) {
+      for (let i = 0; i < emotion.numberOfParticles; i++) {
         const newParticle = Particle();
         particles.push(newParticle);
       }
@@ -45,11 +49,11 @@ class Sketch extends Component {
           const angle = sketch.noise(xoff, yoff, zoff) * sketch.TWO_PI;
           const v = p5.Vector.fromAngle(angle);
           flowField[index] = v;
-          v.setMag(0.1);
+          v.setMag(emotion.magnetism);
           xoff += inc;
         }
         yoff += inc;
-        zoff += 0.0001;
+        zoff += emotion.zOffset;
       }
 
       for (let i = 0; i < particles.length; i++) {
@@ -61,6 +65,7 @@ class Sketch extends Component {
       sketch.stroke("#38c6d9");
       sketch.strokeWeight(3);
       sketch.square(0, 0, 600);
+      sketch.strokeWeight(1)
     };
 
     const Particle = () => {
@@ -71,7 +76,7 @@ class Sketch extends Component {
 
       const vel = sketch.createVector(0, 0);
       const acc = sketch.createVector(0, 0);
-      const maxSpeed = 4;
+      const maxSpeed = emotion.maxSpeed;
       const prevPos = pos.copy();
 
       const particle: Particle = {
@@ -92,10 +97,9 @@ class Sketch extends Component {
           particle.applyForce(force);
         },
         show: () => {
-          sketch.stroke(255, 5);
-          sketch.strokeWeight(1.5);
+          sketch.stroke(255, emotion.strokeAlpha);
+          sketch.strokeWeight(emotion.strokeWeight);
           sketch.line(pos.x, pos.y, prevPos.x, prevPos.y);
-          // point(this.pos.x, this.pos.y);
           particle.updatePrev();
         },
         updatePrev: () => {
@@ -115,7 +119,7 @@ class Sketch extends Component {
             pos.y = 0;
             particle.updatePrev();
           }
-          if (pos.x < 0) {
+          if (pos.y < 0) {
             pos.y = sketch.height;
             particle.updatePrev();
           }

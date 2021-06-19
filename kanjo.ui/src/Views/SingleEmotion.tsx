@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import emotionData from "../Helpers/Data/emotionData";
 import { Emotion, EmotionProps } from "../Helpers/Types/EmotionTypes";
-import PerlinNoise from '../Components/Sketch/PerlinNoise';
+import PerlinNoise from "../Components/Sketch/PerlinNoise";
 
 type SingleEmotionState = {
   emotion: Emotion;
@@ -28,7 +28,11 @@ class SingleEmotion extends Component<EmotionProps> {
             <h1>• {emotion.name} •</h1>
           </div>
           <div className="mb-4 text-center">{emotion.description}</div>
-          <PerlinNoise />
+          {emotion.numberOfParticles && (
+            <div className="d-flex justify-content-center">
+              <PerlinNoise emotion={emotion} />
+            </div>
+          )}
         </div>
       </div>
     );
