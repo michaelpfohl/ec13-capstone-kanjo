@@ -12,7 +12,16 @@ type Particle = {
 };
 
 class Sketch extends Component<EmotionProps> {
+
+  state ={
+    emotion: this.props.emotion,
+  }
+
   myRef = createRef<HTMLDivElement>();
+
+  componentDidMount(): void {
+    new p5(this.sketch);
+  }
 
   sketch = (sketch: p5): void => {
     const { emotion } = this.props;
@@ -128,10 +137,6 @@ class Sketch extends Component<EmotionProps> {
       return particle;
     };
   };
-
-  componentDidMount(): void {
-    new p5(this.sketch);
-  }
 
   render(): JSX.Element {
     return (
