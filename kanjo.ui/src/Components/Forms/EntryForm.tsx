@@ -9,6 +9,7 @@ import entryData from "../../Helpers/Data/entryData";
 import entryEmotionData from "../../Helpers/Data/entryEmotionData";
 
 import EntryEmotionCard from "../../Components/Cards/EntryEmotionCard";
+import PerlinNoise from "../../Components/Sketch/PerlinNoise";
 
 class EntryForm extends Component<EntryProps> {
   state = {
@@ -28,6 +29,8 @@ class EntryForm extends Component<EntryProps> {
     why_Answer: "",
     prompt: false,
     todaysEntry: this.props.todaysEntry,
+    entryEmotionsWithSketchInfo: [],
+    aggregateEmotion: "",
   };
 
   componentDidMount(): void {
@@ -58,7 +61,18 @@ class EntryForm extends Component<EntryProps> {
           entryEmotionData
             .getEntryEmotionsByEntryId(this.state.id)
             .then((response) => {
+              const promises : Promise<Emotion>[] = [];
               this.setState({ entryEmotions: response });
+              response.forEach((emotion: Emotion) => {
+                promises.push(emotionData.getEmotionById(emotion.emotion_Id).then((response) => {
+                   return response;
+                }));
+              });
+
+              Promise.all(promises).then((responses) => {
+                this.setState({ entryEmotionsWithSketchInfo: responses });
+              });
+
             });
         });
     } else {
@@ -77,7 +91,18 @@ class EntryForm extends Component<EntryProps> {
           entryEmotionData
             .getEntryEmotionsByEntryId(this.state.id)
             .then((response) => {
+              const promises : Promise<Emotion>[] = [];
               this.setState({ entryEmotions: response });
+              response.forEach((emotion) => {
+                promises.push(emotionData.getEmotionById(emotion.emotion_Id).then((response) => {
+                  return response;
+                }));
+              });
+
+              Promise.all(promises).then((responses) => {
+                this.setState({ entryEmotionsWithSketchInfo: responses });
+              });
+
             });
         });
     }
@@ -184,6 +209,49 @@ class EntryForm extends Component<EntryProps> {
     });
   };
 
+  aggregateSketchInfo = (emotions: Emotion[]): Emotion => {
+    let strokeWeight = 0;
+    let strokeAlpha = 0;
+    let increment = 0;
+    let magnetism = 0;
+    let maxSpeed = 0;
+    let scale = 0;
+    let zOffset = 0;
+    let numberOfParticles = 0;
+    let frameRate = 0;
+
+    emotions.forEach((emotion) => {
+      strokeWeight += emotion.strokeWeight;
+      strokeAlpha += emotion.strokeAlpha;
+      increment += emotion.increment;
+      magnetism += emotion.magnetism;
+      maxSpeed += emotion.maxSpeed;
+      scale += emotion.scale;
+      zOffset += emotion.zOffset;
+      numberOfParticles += emotion.numberOfParticles;
+      frameRate += emotion.frameRate;
+    });
+
+    return {
+      name: "",
+      active: true,
+      description: "",
+      id: 0,
+      user_Id: 6,
+      strokeWeight: strokeWeight / emotions.length,
+      strokeAlpha: strokeAlpha / emotions.length,
+      increment: increment / emotions.length,
+      magnetism: magnetism / emotions.length,
+      maxSpeed: maxSpeed / emotions.length,
+      scale: scale / emotions.length,
+      zOffset: zOffset / emotions.length,
+      numberOfParticles: numberOfParticles / emotions.length,
+      frameRate: frameRate / emotions.length,
+    };
+  };
+
+
+
   render(): JSX.Element {
     const {
       id,
@@ -193,7 +261,9 @@ class EntryForm extends Component<EntryProps> {
       entryEmotions,
       emotionName,
       prompt,
+      entryEmotionsWithSketchInfo,
     } = this.state;
+
     const options = (emotion: Emotion): JSX.Element => {
       return (
         <option key={emotion.id} value={emotion.id}>
@@ -225,7 +295,12 @@ class EntryForm extends Component<EntryProps> {
       return cards;
     };
 
+    const aggregateSketch = this.aggregateSketchInfo(
+      this.state.entryEmotionsWithSketchInfo
+    );
+   
     const emotionDropdown = emotions.map(options);
+
     return (
       <div className="entry-container bgc-black color-white border-blue">
         <div>
@@ -284,6 +359,12 @@ class EntryForm extends Component<EntryProps> {
               <div className="d-flex justify-content-center flex-wrap">
                 {assignBackground(entryEmotions)}
               </div>
+              {entryEmotionsWithSketchInfo.length && (
+                <PerlinNoise emotion={aggregateSketch} />
+              )}
+              {!entryEmotionsWithSketchInfo.length && (
+                <h2>add an emotion to begin the visualizer</h2>
+              )}
             </div>
           )}
           {prompt && (
