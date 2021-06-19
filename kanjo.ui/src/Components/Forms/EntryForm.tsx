@@ -32,10 +32,12 @@ class EntryForm extends Component<EntryProps> {
 
   componentDidMount(): void {
     const { user } = this.props;
-    this.setState({ user_Id: user.id, flow_step: 0 });
-    emotionData.getEmotions(user.id).then((response) => {
-      this.setState({ emotions: response });
-    });
+    if (user) {
+      this.setState({ user_Id: user.id, flow_step: 0 });
+      emotionData.getEmotions(user.id).then((response) => {
+        this.setState({ emotions: response });
+      });
+    }
 
     const { todaysEntry } = this.state;
     if (todaysEntry) {
@@ -199,9 +201,16 @@ class EntryForm extends Component<EntryProps> {
         </option>
       );
     };
-    const circles = (entryEmotion: EntryEmotion, background: number): JSX.Element => {
+    const circles = (
+      entryEmotion: EntryEmotion,
+      background: number
+    ): JSX.Element => {
       return (
-        <EntryEmotionCard entryEmotion={entryEmotion} key={entryEmotion.id} background={background}/>
+        <EntryEmotionCard
+          entryEmotion={entryEmotion}
+          key={entryEmotion.id}
+          background={background}
+        />
       );
     };
 
@@ -212,9 +221,9 @@ class EntryForm extends Component<EntryProps> {
         counter++;
         if (counter >= 9) counter = 1;
         cards.push(circles(emotion, counter));
-      })
+      });
       return cards;
-    }
+    };
 
     const emotionDropdown = emotions.map(options);
     return (
@@ -252,7 +261,9 @@ class EntryForm extends Component<EntryProps> {
                     </option>
                     {emotionDropdown}
                   </select>
-                  <button className="bgc-black continue-btn continue-btn-container"><i className="fas fa-forward continue-icon"></i></button>
+                  <button className="bgc-black continue-btn continue-btn-container">
+                    <i className="fas fa-forward continue-icon"></i>
+                  </button>
                 </form>
               </div>
               <div className="d-flex justify-content-center mt-4">
@@ -277,7 +288,9 @@ class EntryForm extends Component<EntryProps> {
           )}
           {prompt && (
             <div>
-              <h2 className="mb-5 question-header">did you feel {emotionName} today?</h2>
+              <h2 className="mb-5 question-header">
+                did you feel {emotionName} today?
+              </h2>
               <div className="d-flex justify-content-around control-container">
                 <form onSubmit={this.backPromptStep}>
                   <button className="hidden-btn">
@@ -353,7 +366,9 @@ class EntryForm extends Component<EntryProps> {
           )}
           {id && flow_step === 3 && (
             <div>
-              <h2 className="mb-4 question-header">when did you feel {emotionName} today?</h2>
+              <h2 className="mb-4 question-header">
+                when did you feel {emotionName} today?
+              </h2>
               <textarea
                 rows={7}
                 name="when_Answer"
@@ -379,8 +394,7 @@ class EntryForm extends Component<EntryProps> {
           {id && flow_step === 4 && (
             <div>
               <h2 className="mb-4 question-header">
-                describe what your {emotionName} was
-                like today
+                describe what your {emotionName} was like today
               </h2>
               <textarea
                 rows={7}

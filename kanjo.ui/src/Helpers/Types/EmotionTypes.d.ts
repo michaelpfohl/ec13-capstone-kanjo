@@ -6,6 +6,15 @@ declare module 'EmotionTypes' {
         description: string;
         active: boolean;
         frequency?: number;
+        strokeWeight?: number;
+        strokeAlpha?: number;
+        maxSpeed?: number;
+        frameRate?: number;
+        scale?: number;
+        numberOfParticles?: number;
+        magnetism?: number;
+        increment?: number;
+        zOffset?: number;
     }
 
     type EmotionProps = {

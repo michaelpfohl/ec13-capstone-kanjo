@@ -92,8 +92,17 @@ namespace Kanjo.Data
         {
             using var db = new SqlConnection(ConnectionString);
             var sql = @"UPDATE [dbo].[Emotions]
-                           SET [Name] = @Name
-                              ,[Description] = @Description
+                              SET [Name] = @Name
+                                ,[Description] = @Description
+                                ,[StrokeWeight] = @StrokeWeight
+                                ,[StrokeAlpha] = @StrokeAlpha
+                                ,[MaxSpeed] = @MaxSpeed
+                                ,[FrameRate] = @FrameRate
+                                ,[Scale] = @Scale
+                                ,[NumberOfParticles] = @NumberOfParticles
+                                ,[Magnetism] = @Magnetism
+                                ,[Increment] = @Increment
+                                ,[ZOffset] = @ZOffset
                         WHERE Id = @id";
             db.Execute(sql, emotion);
         }
