@@ -26,7 +26,6 @@ const getUserByFirebaseUid = (firebase_Uid: string): Promise<User> =>
 
 const addNewUser = (user: User): Promise<User> =>
   new Promise((resolve, reject) => {
-    console.log(user);
     axios
       .post(`${usersUrl}`, user)
       .then((response) => {
