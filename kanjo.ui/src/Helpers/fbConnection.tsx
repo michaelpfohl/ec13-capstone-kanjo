@@ -1,5 +1,5 @@
 import firebase from 'firebase';
-import config from './config.json';
+import config from './config';
 import axios from 'axios';
 
 axios.interceptors.request.use((request) => {

@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/kanjo/databases/kanjo",
+      "type": "mssql.azure",
+      "connectionId": "Kanjo",
+      "secretStore": "AzureAppSettings"
+    }
+  }
+}
