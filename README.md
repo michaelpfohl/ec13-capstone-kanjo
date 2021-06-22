@@ -1,4 +1,4 @@
-[!kanjo](https://user-images.githubusercontent.com/61816911/122856898-3b558d80-d2dd-11eb-9e60-7dfb3fd959d2.mp4)
+![kanjo readme](https://user-images.githubusercontent.com/61816911/122857394-06960600-d2de-11eb-9cde-6267df1b7f80.gif)
 
 # Kanjo
 
