@@ -68,7 +68,7 @@ const addEmotion = (emotion: Emotion): Promise<Emotion> =>
       .catch((error) => reject(error));
   });
 
-export default {
+const emotionData = {
   getEmotions,
   getAllEmotionsWithEntries,
   getPublicEmotions,
@@ -76,3 +76,5 @@ export default {
   getEmotionsWithFrequencyByDateRange,
   addEmotion,
 };
+
+export default emotionData;

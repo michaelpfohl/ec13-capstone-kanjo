@@ -39,9 +39,11 @@ const updateEntryEmotion = (
 const deleteEntryEmotion = (entryEmotionId: number): Promise<EntryEmotion> =>
   axios.put(`${entryEmotionsUrl}/delete/${entryEmotionId}`);
 
-export default {
+const entryEmotionData = {
   addEntryEmotion,
   getEntryEmotionsByEntryId,
   updateEntryEmotion,
   deleteEntryEmotion,
 };
+
+export default entryEmotionData;

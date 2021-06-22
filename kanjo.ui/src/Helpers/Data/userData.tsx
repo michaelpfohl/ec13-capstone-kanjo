@@ -35,8 +35,10 @@ const addNewUser = (user: User): Promise<User> =>
       .catch((error) => reject(error));
   });
 
-export default {
+const userData = {
   getUserById,
   getUserByFirebaseUid,
   addNewUser,
 };
+
+export default userData;
