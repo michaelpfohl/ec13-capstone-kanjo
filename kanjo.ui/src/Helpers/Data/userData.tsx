@@ -1,8 +1,8 @@
 import axios from "axios";
-import { BaseURL } from "../config.json";
+import config from "../config";
 import { User } from "../Types/UserTypes";
 
-const usersUrl = `${BaseURL}/users`;
+const usersUrl = `${config.BaseURL}/users`;
 
 const getUserById = (id: number): Promise<User> =>
   new Promise((resolve, reject) => {

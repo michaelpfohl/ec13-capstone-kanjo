@@ -6,7 +6,7 @@ dist/
 tsconfig.json
 .eslintrc
 .eslintignore
-src/Helpers/config.json
+.env
 
 # dependencies
 /node_modules

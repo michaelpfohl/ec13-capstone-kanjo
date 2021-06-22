@@ -1,8 +1,8 @@
 import axios from "axios";
-import { BaseURL } from "../config.json";
+import config from "../config";
 import { Entry } from "../Types/EntryTypes";
 
-const entriesUrl = `${BaseURL}/entries`;
+const entriesUrl = `${config.BaseURL}/entries`;
 
 const addEntry = (entry: Entry): Promise<Entry> =>
   new Promise((resolve, reject) => {

@@ -1,8 +1,8 @@
 import axios from "axios";
-import { BaseURL } from "../config.json";
+import config from "../config";
 import { EntryEmotion } from "../Types/EntryEmotionTypes";
 
-const entryEmotionsUrl = `${BaseURL}/entry_emotions`;
+const entryEmotionsUrl = `${config.BaseURL}/entry_emotions`;
 
 const addEntryEmotion = (entryEmotion: EntryEmotion): Promise<EntryEmotion> =>
   new Promise((resolve, reject) => {
