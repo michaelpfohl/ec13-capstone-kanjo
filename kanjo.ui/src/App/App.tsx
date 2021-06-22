@@ -43,6 +43,7 @@ class App extends Component<AppState> {
       .signInWithPopup(provider)
       .then((user) => {
         if (user.additionalUserInfo?.isNewUser) {
+          console.log(user);
           const userInfo = {
             name: user.user?.displayName,
             profile_Picture: user.user?.photoURL,
@@ -50,7 +51,6 @@ class App extends Component<AppState> {
             email: user.user?.email,
           };
           userData.addNewUser(userInfo);
-          window.location.href = "/";
         }
       });
   };
