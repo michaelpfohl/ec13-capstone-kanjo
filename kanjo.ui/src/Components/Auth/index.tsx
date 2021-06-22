@@ -42,7 +42,7 @@ class Auth extends Component<AuthProps> {
 
   logInOrOut = (): JSX.Element => {
     const { user } = this.props;
-    if (user == false) {
+    if (user === false) {
       return (
         <div className="d-flex justify-content-center">
           <div className="mx-4">

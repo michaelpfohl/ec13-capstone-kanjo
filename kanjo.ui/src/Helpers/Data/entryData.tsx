@@ -61,7 +61,8 @@ const getEntry = (entryId: number): Promise<Entry> =>
 const deleteEntry = (id: number): Promise<Entry> =>
   axios.put(`${entriesUrl}/delete/${id}`);
 
-export default {
+
+const entryData = {
   addEntry,
   getMostRecent,
   getAllEntriesByUser,
@@ -69,3 +70,5 @@ export default {
   getEntry,
   deleteEntry,
 };
+
+export default entryData;
