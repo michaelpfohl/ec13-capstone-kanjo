@@ -15,4 +15,6 @@ The user can create an entry and add emotions to their entry, answering question
 - P5.js
 - Sass / Bootstrap
 - Firebase Authentication
+- TSQL / Microsoft SQL Server Management Studio
 - Deployed via Azure / Netlify
+- API calls tested with Postman
